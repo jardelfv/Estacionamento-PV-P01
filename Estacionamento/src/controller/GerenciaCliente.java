@@ -13,7 +13,9 @@ import model.Cliente;
  */
 public class GerenciaCliente {
     
-    public boolean incluir(Cliente c){
+    public boolean incluir(String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep, String telefone){
+        
+        Cliente c = new Cliente(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
         
         return true;
     }

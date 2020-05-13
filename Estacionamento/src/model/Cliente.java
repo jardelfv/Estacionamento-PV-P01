@@ -20,8 +20,8 @@ public class Cliente {
                    cep,
                    telefone;
 
-    public Cliente(int codigo, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep, String telefone) {
-        this.codigo = codigo;
+    public Cliente(String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep, String telefone) {
+        
         this.nome = nome;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -100,9 +100,6 @@ public class Cliente {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
     
     
 }
