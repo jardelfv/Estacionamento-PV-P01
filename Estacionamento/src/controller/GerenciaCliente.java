@@ -5,6 +5,7 @@
  */
 package controller;
 
+import DAO.ClienteDAO;
 import model.Cliente;
 
 /**
@@ -12,12 +13,18 @@ import model.Cliente;
  * @author jardel
  */
 public class GerenciaCliente {
+    ClienteDAO cliDao = new ClienteDAO();
     
-    public boolean incluir(String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep, String telefone){
+    public String incluir(String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep, String telefone){
         
         Cliente c = new Cliente(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
+        String mensagem = cliDao.incluir(c);
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
         
-        return true;
     }
     
     public Object consultar(int codigo){

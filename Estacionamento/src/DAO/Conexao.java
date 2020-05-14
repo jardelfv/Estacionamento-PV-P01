@@ -7,6 +7,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -23,11 +24,12 @@ public class Conexao {
             prop.put("user", "iftm");
             prop.put("password", "iftm@123321");
             prop.put("charset", "UTF-8");
-            prop.put("lc_ctype", "ISO8859_1");
-
-            return DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/DB_locacao", prop);
-            // oul: "jdbc:postgresql://locacao.postgres.uhserver.com/locacao"
+            //prop.put("lc_ctype", "ISO8859_1");
+            
+            return DriverManager.getConnection("jdbc:postgresql://35.247.205.11/bd_estacionamento", prop);
+            //"jdbc:postgresql://localhost:5432/DB_locacao", prop);
+            //"jdbc:postgresql://locacao.postgres.uhserver.com/locacao"
+            
         } catch (Exception e) {
             System.err.println("Erro: " + e.getMessage());
         }

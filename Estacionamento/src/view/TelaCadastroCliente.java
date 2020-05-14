@@ -5,12 +5,15 @@
  */
 package view;
 
+import controller.GerenciaCliente;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jardel
  */
 public class TelaCadastroCliente extends javax.swing.JFrame {
-
+    GerenciaCliente gc = new GerenciaCliente();
     /**
      * Creates new form TelaCadastroCliente
      */
@@ -96,6 +99,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jLabel9.setText("Telefone:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -186,6 +194,23 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private void tfEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfEstadoActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String nome = tfNome.getText(),
+                logradouro = tfLogradouro.getText(),
+                numero = tfNumero.getText(),
+                bairro = tfBairro.getText(),
+                municipio = tfBairro.getText(),
+                estado = tfEstado.getText(),
+                cep = tfCep.getText(),
+                telefone = tfTelefone.getText();
+        String mensagem = gc.incluir(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
+        if(mensagem.equals("ok")){
+            JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(this, "Algo aconteceu, "+mensagem);
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
