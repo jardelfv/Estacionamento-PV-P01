@@ -16,7 +16,7 @@ public class Estacionamento {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new TelaCadastroCliente().setVisible(true);
+        new TelaMain().setVisible(true);
     }
     
 }
