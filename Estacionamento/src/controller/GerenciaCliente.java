@@ -6,6 +6,7 @@
 package controller;
 
 import DAO.ClienteDAO;
+import java.util.ArrayList;
 import model.Cliente;
 
 /**
@@ -13,6 +14,7 @@ import model.Cliente;
  * @author jardel
  */
 public class GerenciaCliente {
+    ArrayList<Cliente> clientes = new ArrayList<>();
     ClienteDAO cliDao = new ClienteDAO();
     
     public String incluir(String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep, String telefone){
@@ -41,5 +43,12 @@ public class GerenciaCliente {
     public boolean existeCliente(int codigo){
         
         return true;
+    }
+    
+    public ArrayList<Cliente> listar(){
+        clientes = null;
+        clientes = cliDao.listar();
+        
+        return clientes;
     }
 }

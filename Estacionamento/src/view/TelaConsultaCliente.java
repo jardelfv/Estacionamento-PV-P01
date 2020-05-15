@@ -5,12 +5,18 @@
  */
 package view;
 
+import controller.GerenciaCliente;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+
 /**
  *
  * @author Jardel
  */
 public class TelaConsultaCliente extends javax.swing.JFrame {
-
+    GerenciaCliente gc = new GerenciaCliente();
     /**
      * Creates new form TelaConsultaCliente
      */
@@ -52,12 +58,18 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPesquisaCliente = new javax.swing.JTable();
+        btnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel7.setText("Estado:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -138,6 +150,13 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblPesquisaCliente);
 
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,7 +201,10 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPesquisa))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnPesquisa)
+                                .addGap(32, 32, 32)
+                                .addComponent(btnAtualizar)))))
                 .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -198,7 +220,8 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisa))
+                    .addComponent(btnPesquisa)
+                    .addComponent(btnAtualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
@@ -247,6 +270,56 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPesquisaActionPerformed
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        
+            String nome = tfNome.getText(),
+                   logradouro = tfLogradouro.getText(),
+                   numero = tfNumero.getText(),
+                   bairro = tfBairro.getText(),
+                   municipio = tfMunicipio.getText(),
+                   estado = tfEstado.getText(),
+                   cep = tfCep.getText(),
+                   telefone = tfTelefone.getText();
+            
+        String mensagem = gc.incluir(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
+        
+        if(mensagem.equals("ok")){
+            carregarTabela();
+            JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro! "+mensagem);
+        }
+            
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        carregarTabela();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+    
+    public void carregarTabela(){
+        ArrayList<Cliente> arrayClientes = new ArrayList<>();
+        arrayClientes = gc.listar();
+        
+        Object colunas[] = {"código","nome","logradouro","número","bairro","município","estado","CEP","telefone"};
+        DefaultTableModel modelo = new DefaultTableModel(colunas,0);
+        
+        for(int i=0; i < arrayClientes.size(); i++){
+            Object linhas[] = new Object[] {
+                arrayClientes.get(i).getCodigo(),
+                arrayClientes.get(i).getNome(),
+                arrayClientes.get(i).getLogradouro(),
+                arrayClientes.get(i).getNumero(),
+                arrayClientes.get(i).getBairro(),
+                arrayClientes.get(i).getMunicipio(),
+                arrayClientes.get(i).getEstado(),
+                arrayClientes.get(i).getCep(),
+                arrayClientes.get(i).getTelefone()
+            };
+            modelo.addRow(linhas);
+        }
+        
+        tblPesquisaCliente.setModel(modelo);
+    }
     /**
      * @param args the command line arguments
      */
@@ -283,6 +356,7 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPesquisa;
     private javax.swing.JButton btnSalvar;

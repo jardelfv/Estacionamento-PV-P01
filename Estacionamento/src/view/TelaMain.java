@@ -59,6 +59,11 @@ public class TelaMain extends javax.swing.JFrame {
         menuCliente.add(menuClienteCadastrar);
 
         menuClienteConsultar.setText("Consultar");
+        menuClienteConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuClienteConsultarActionPerformed(evt);
+            }
+        });
         menuCliente.add(menuClienteConsultar);
 
         jMenuBar1.add(menuCliente);
@@ -88,6 +93,11 @@ public class TelaMain extends javax.swing.JFrame {
         System.exit(0);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menuClienteConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClienteConsultarActionPerformed
+        new TelaConsultaCliente().setVisible(true);
+        
+    }//GEN-LAST:event_menuClienteConsultarActionPerformed
 
     /**
      * @param args the command line arguments

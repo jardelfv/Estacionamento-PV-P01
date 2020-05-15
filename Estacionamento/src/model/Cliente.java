@@ -32,6 +32,10 @@ public class Cliente {
         this.telefone = telefone;
     }
 
+    public Cliente() {
+    }
+    
+
     public int getCodigo() {
         return codigo;
     }
@@ -98,6 +102,10 @@ public class Cliente {
 
     public String getTelefone() {
         return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     

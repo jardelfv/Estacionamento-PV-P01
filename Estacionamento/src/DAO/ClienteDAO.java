@@ -7,6 +7,7 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import model.Cliente;
 
@@ -63,4 +64,43 @@ public class ClienteDAO {
             return mensagem;
         }
     }
+    
+    public ArrayList<Cliente> listar() {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT codigo, nome, logradouro, numero, bairro, municipio, estado, cep, telefone FROM tbl_cliente";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Cliente cli = new Cliente();
+
+                cli.setCodigo(rs.getInt("codigo"));
+                cli.setNome(rs.getString("nome"));
+                cli.setLogradouro(rs.getString("logradouro"));
+                cli.setNumero(rs.getString("numero"));
+                cli.setBairro(rs.getString("bairro"));
+                cli.setMunicipio(rs.getString("municipio"));
+                cli.setEstado(rs.getString("estado"));
+                cli.setCep(rs.getString("cep"));
+                cli.setTelefone(rs.getString("telefone"));
+                
+
+                clientes.add(cli);
+
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            System.err.println("Erro na operação de listar cliente: " + e.getMessage());
+        }
+
+        return clientes;
+    }
+    
 }
