@@ -18,7 +18,7 @@ public class Veiculo {
                    chassi,
                    placa;
 
-    public Veiculo(int anoModelo, int anoFabricacao, int codigo, String marca, String modelo, String chassi, String placa) {
+    public Veiculo(int anoModelo, int anoFabricacao, String marca, String modelo, String chassi, String placa) {
         this.anoModelo = anoModelo;
         this.anoFabricacao = anoFabricacao;
         this.codigo = codigo;
@@ -27,6 +27,10 @@ public class Veiculo {
         this.chassi = chassi;
         this.placa = placa;
     }
+
+    public Veiculo() {
+    }
+    
 
     public int getAnoModelo() {
         return anoModelo;

@@ -33,6 +33,9 @@ public class TelaMain extends javax.swing.JFrame {
         menuCliente = new javax.swing.JMenu();
         menuClienteCadastrar = new javax.swing.JMenuItem();
         menuClienteConsultar = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        menuVeiculoCadatrar = new javax.swing.JMenuItem();
+        menuVeiculoConsultar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +71,26 @@ public class TelaMain extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCliente);
 
+        jMenu1.setText("Veículo");
+
+        menuVeiculoCadatrar.setText("Cadastrar");
+        menuVeiculoCadatrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVeiculoCadatrarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuVeiculoCadatrar);
+
+        menuVeiculoConsultar.setText("Consultar");
+        menuVeiculoConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVeiculoConsultarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuVeiculoConsultar);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,6 +121,16 @@ public class TelaMain extends javax.swing.JFrame {
         new TelaConsultaCliente().setVisible(true);
         
     }//GEN-LAST:event_menuClienteConsultarActionPerformed
+
+    private void menuVeiculoCadatrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVeiculoCadatrarActionPerformed
+        new TelaCadastroVeiculo().setVisible(true);
+        
+    }//GEN-LAST:event_menuVeiculoCadatrarActionPerformed
+
+    private void menuVeiculoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVeiculoConsultarActionPerformed
+        new TelaConsultaVeiculo().setVisible(true);
+        
+    }//GEN-LAST:event_menuVeiculoConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,11 +168,14 @@ public class TelaMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuItem menuClienteCadastrar;
     private javax.swing.JMenuItem menuClienteConsultar;
+    private javax.swing.JMenuItem menuVeiculoCadatrar;
+    private javax.swing.JMenuItem menuVeiculoConsultar;
     // End of variables declaration//GEN-END:variables
 }

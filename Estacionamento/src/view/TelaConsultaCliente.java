@@ -60,7 +60,7 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         tblPesquisaCliente = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel7.setText("Estado:");
 
