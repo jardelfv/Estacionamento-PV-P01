@@ -21,11 +21,9 @@ public class Patio {
                    municipio,
                    estado,
                    cep;
-
-    public Patio(int capacidadeDeVeiculos, int lotacao, int codigo, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
+    // sem a chave primária codigo
+    public Patio(int capacidadeDeVeiculos, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
         this.capacidadeDeVeiculos = capacidadeDeVeiculos;
-        this.lotacao = lotacao;
-        this.codigo = codigo;
         this.valorDaDiaria = valorDaDiaria;
         this.nome = nome;
         this.logradouro = logradouro;
@@ -34,7 +32,25 @@ public class Patio {
         this.municipio = municipio;
         this.estado = estado;
         this.cep = cep;
+        
     }
+    // com a chave primária codigo
+    public Patio(int codigo, int capacidadeDeVeiculos, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
+        this.capacidadeDeVeiculos = capacidadeDeVeiculos;
+        this.valorDaDiaria = valorDaDiaria;
+        this.nome = nome;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.municipio = municipio;
+        this.estado = estado;
+        this.cep = cep;
+        this.codigo = codigo;
+    }
+    
+    public Patio() {
+    }
+    
 
     public int getCapacidadeDeVeiculos() {
         return capacidadeDeVeiculos;

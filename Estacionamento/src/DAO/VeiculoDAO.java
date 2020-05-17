@@ -62,7 +62,7 @@ public class VeiculoDAO {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "UPDATE tbl_veiculo SET marca = ?, modelo = ?, ano_fabricacao = ?, ano_modelo = ? WHERE codigo = ?";
+        sql = "UPDATE tbl_veiculo SET marca = ?, modelo = ?, ano_fabricacao = ?, ano_modelo = ? WHERE placa = ?";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -71,9 +71,11 @@ public class VeiculoDAO {
             ps.setString(2, car.getModelo());
             ps.setInt(3, car.getAnoFabricacao());
             ps.setInt(4, car.getAnoModelo());
-            ps.setInt(5, car.getCodigo());
+            //ps.setInt(5, car.getCodigo());
+            ps.setString(5, car.getPlaca());
 
-            ps.executeUpdate();
+            int resultado = ps.executeUpdate();
+            System.out.println("resultado desta query: "+resultado);
             System.out.println("\nOK, alterado com sucesso!");
             ps.close();
             return "ok";

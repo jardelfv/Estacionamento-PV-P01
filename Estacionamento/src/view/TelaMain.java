@@ -33,9 +33,12 @@ public class TelaMain extends javax.swing.JFrame {
         menuCliente = new javax.swing.JMenu();
         menuClienteCadastrar = new javax.swing.JMenuItem();
         menuClienteConsultar = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuVeiculo = new javax.swing.JMenu();
         menuVeiculoCadatrar = new javax.swing.JMenuItem();
         menuVeiculoConsultar = new javax.swing.JMenuItem();
+        menuPatio = new javax.swing.JMenu();
+        menuPatioCadastrar = new javax.swing.JMenuItem();
+        menuPatioConsultar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +74,7 @@ public class TelaMain extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCliente);
 
-        jMenu1.setText("Veículo");
+        menuVeiculo.setText("Veículo");
 
         menuVeiculoCadatrar.setText("Cadastrar");
         menuVeiculoCadatrar.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +82,7 @@ public class TelaMain extends javax.swing.JFrame {
                 menuVeiculoCadatrarActionPerformed(evt);
             }
         });
-        jMenu1.add(menuVeiculoCadatrar);
+        menuVeiculo.add(menuVeiculoCadatrar);
 
         menuVeiculoConsultar.setText("Consultar");
         menuVeiculoConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,9 +90,29 @@ public class TelaMain extends javax.swing.JFrame {
                 menuVeiculoConsultarActionPerformed(evt);
             }
         });
-        jMenu1.add(menuVeiculoConsultar);
+        menuVeiculo.add(menuVeiculoConsultar);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuVeiculo);
+
+        menuPatio.setText("Patio");
+
+        menuPatioCadastrar.setText("Cadastrar");
+        menuPatioCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPatioCadastrarActionPerformed(evt);
+            }
+        });
+        menuPatio.add(menuPatioCadastrar);
+
+        menuPatioConsultar.setText("Consultar");
+        menuPatioConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPatioConsultarActionPerformed(evt);
+            }
+        });
+        menuPatio.add(menuPatioConsultar);
+
+        jMenuBar1.add(menuPatio);
 
         setJMenuBar(jMenuBar1);
 
@@ -132,6 +155,16 @@ public class TelaMain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuVeiculoConsultarActionPerformed
 
+    private void menuPatioCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPatioCadastrarActionPerformed
+        new TelaCadastroPatio().setVisible(true);
+        
+    }//GEN-LAST:event_menuPatioCadastrarActionPerformed
+
+    private void menuPatioConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPatioConsultarActionPerformed
+        new TelaConsultaPatio().setVisible(true);
+        
+    }//GEN-LAST:event_menuPatioConsultarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -168,13 +201,16 @@ public class TelaMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuItem menuClienteCadastrar;
     private javax.swing.JMenuItem menuClienteConsultar;
+    private javax.swing.JMenu menuPatio;
+    private javax.swing.JMenuItem menuPatioCadastrar;
+    private javax.swing.JMenuItem menuPatioConsultar;
+    private javax.swing.JMenu menuVeiculo;
     private javax.swing.JMenuItem menuVeiculoCadatrar;
     private javax.swing.JMenuItem menuVeiculoConsultar;
     // End of variables declaration//GEN-END:variables

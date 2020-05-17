@@ -310,7 +310,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         int anoFabricacao = Integer.parseInt(tfAnoFabricacao.getText()),
             anoModelo = Integer.parseInt(tfAnoModelo.getText());
         
-        String mensagem = gv.editar(anoModelo, anoFabricacao, marca, modelo, chassi, marca);
+        String mensagem = gv.editar(anoModelo, anoFabricacao, marca, modelo, chassi, tfPlaca.getText());
         
         if(mensagem.equals("ok")){
             JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
