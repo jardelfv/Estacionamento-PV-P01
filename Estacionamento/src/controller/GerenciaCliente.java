@@ -29,6 +29,17 @@ public class GerenciaCliente {
         
     }
     
+    public String editar(int codigo, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep){
+        Cliente c = new Cliente(codigo, nome, logradouro, numero, bairro, municipio, estado, cep, numero);
+        String mensagem = cliDao.editar(c);
+        
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
+    }
+    
     public Object consultar(int codigo){
         
         return true;

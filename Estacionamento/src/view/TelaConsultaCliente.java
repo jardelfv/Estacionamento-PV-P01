@@ -16,12 +16,16 @@ import model.Cliente;
  * @author Jardel
  */
 public class TelaConsultaCliente extends javax.swing.JFrame {
+    ArrayList<Cliente> arrayClientes = new ArrayList<>();
     GerenciaCliente gc = new GerenciaCliente();
+    String modo;
     /**
      * Creates new form TelaConsultaCliente
      */
     public TelaConsultaCliente() {
         initComponents();
+        modo = "navegar";
+        manipulaBotoesComponentes();
     }
 
     /**
@@ -59,6 +63,10 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPesquisaCliente = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        tfCodigo = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,6 +80,11 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -148,6 +161,11 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblPesquisaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPesquisaClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPesquisaCliente);
 
         btnAtualizar.setText("Atualizar");
@@ -157,58 +175,79 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+
+        jLabel11.setText("CÓDIGO:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalvar)
-                .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel9)
-                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                        .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfLogradouro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
+                        .addComponent(btnSalvar)
+                        .addGap(45, 45, 45))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel9)
+                            .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnPesquisa)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnAtualizar)))))
-                .addContainerGap(86, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))
+                                .addGap(79, 79, 79)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfLogradouro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnPesquisa)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(btnAtualizar))))
+                            .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(86, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -224,7 +263,11 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                     .addComponent(btnAtualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,7 +298,9 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnExcluir))
                 .addGap(28, 28, 28))
         );
 
@@ -271,30 +316,67 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
-            String nome = tfNome.getText(),
-                   logradouro = tfLogradouro.getText(),
-                   numero = tfNumero.getText(),
-                   bairro = tfBairro.getText(),
-                   municipio = tfMunicipio.getText(),
-                   estado = tfEstado.getText(),
-                   cep = tfCep.getText(),
-                   telefone = tfTelefone.getText();
-            
-        String mensagem = gc.incluir(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
-        
-        if(mensagem.equals("ok")){
+
+        String nome = tfNome.getText(),
+                logradouro = tfLogradouro.getText(),
+                numero = tfNumero.getText(),
+                bairro = tfBairro.getText(),
+                municipio = tfMunicipio.getText(),
+                estado = tfEstado.getText(),
+                cep = tfCep.getText(),
+                telefone = tfTelefone.getText();
+        int codigo = Integer.parseInt(tfCodigo.getText());
+
+        String mensagem = gc.editar(codigo, nome, logradouro, numero, bairro, municipio, estado, cep);
+
+        if (mensagem.equals("ok")) {
             carregarTabela();
             JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
-        }else{
-            JOptionPane.showMessageDialog(this, "Erro! "+mensagem);
+            limpaTela();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
         }
-            
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         carregarTabela();
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        modo = "editar";
+        manipulaBotoesComponentes();
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tblPesquisaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesquisaClienteMouseClicked
+        int index = tblPesquisaCliente.getSelectedRow();
+        arrayClientes = null;
+        arrayClientes = gc.listar();
+
+        if(index >=0 && index < arrayClientes.size()){
+            Cliente c = arrayClientes.get(index);
+
+            tfNome.setText(c.getNome());
+            tfLogradouro.setText(c.getLogradouro());
+            tfNumero.setText(c.getNumero());
+            tfMunicipio.setText(c.getMunicipio());
+            tfBairro.setText(c.getBairro());
+            tfEstado.setText(c.getEstado());
+            tfCep.setText(c.getCep());
+            tfTelefone.setText(c.getTelefone());
+            tfCodigo.setText(String.valueOf(c.getCodigo()));
+        }
+        
+    }//GEN-LAST:event_tblPesquisaClienteMouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpaTela();
+
+        modo = "navegar";
+        manipulaBotoesComponentes();
+        
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
     public void carregarTabela(){
         ArrayList<Cliente> arrayClientes = new ArrayList<>();
@@ -319,6 +401,96 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         }
         
         tblPesquisaCliente.setModel(modelo);
+    }
+    
+    public void limpaTela(){
+        tfNome.setText("");
+        tfLogradouro.setText("");
+        tfNumero.setText("");
+        tfMunicipio.setText("");
+        tfBairro.setText("");
+        tfEstado.setText("");
+        tfCep.setText("");
+        tfTelefone.setText("");
+        tfCodigo.setText("");
+    }
+    public void manipulaBotoesComponentes(){
+        switch (modo) {
+            case "navegar":
+                btnSalvar.setEnabled(false);
+                btnCancelar.setEnabled(false);
+
+                tfNome.setEditable(false);
+                tfLogradouro.setEditable(false);
+                tfNumero.setEditable(false);
+                tfMunicipio.setEditable(false);
+                tfBairro.setEditable(false);
+                tfEstado.setEditable(false);
+                tfCep.setEditable(false);
+                tfTelefone.setEditable(false);
+                tfCodigo.setEditable(false);
+
+                btnEditar.setEnabled(true);
+                btnExcluir.setEnabled(false);
+
+                break;
+
+            case "editar":
+                btnSalvar.setEnabled(true);
+                btnCancelar.setEnabled(true);
+                
+                tfNome.setEditable(true);
+                tfLogradouro.setEditable(true);
+                tfNumero.setEditable(true);
+                tfMunicipio.setEditable(true);
+                tfBairro.setEditable(true);
+                tfEstado.setEditable(true);
+                tfCep.setEditable(true);
+                tfTelefone.setEditable(true);
+                tfCodigo.setEditable(false);
+
+                btnEditar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+                break;
+
+            case "excluir":
+                btnSalvar.setEnabled(false);
+                btnCancelar.setEnabled(false);
+                
+                tfNome.setEditable(false);
+                tfLogradouro.setEditable(false);
+                tfNumero.setEditable(false);
+                tfMunicipio.setEditable(false);
+                tfBairro.setEditable(false);
+                tfEstado.setEditable(false);
+                tfCep.setEditable(false);
+                tfTelefone.setEditable(false);
+                tfCodigo.setEditable(false);
+
+                btnEditar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+                break;
+
+            case "selecao":
+                btnSalvar.setEnabled(false);
+                btnCancelar.setEnabled(false);
+
+                tfNome.setEditable(false);
+                tfLogradouro.setEditable(false);
+                tfNumero.setEditable(false);
+                tfMunicipio.setEditable(false);
+                tfBairro.setEditable(false);
+                tfEstado.setEditable(false);
+                tfCep.setEditable(false);
+                tfTelefone.setEditable(false);
+                tfCodigo.setEditable(false);
+
+                btnEditar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+                break;
+            default:
+                System.out.println("Modo inexistente");
+        }
     }
     /**
      * @param args the command line arguments
@@ -358,10 +530,13 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisa;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -375,6 +550,7 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
     private javax.swing.JTable tblPesquisaCliente;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCep;
+    private javax.swing.JTextField tfCodigo;
     private javax.swing.JTextField tfEstado;
     private javax.swing.JTextField tfLogradouro;
     private javax.swing.JTextField tfMunicipio;

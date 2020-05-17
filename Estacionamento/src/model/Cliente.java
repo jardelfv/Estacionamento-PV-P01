@@ -31,6 +31,18 @@ public class Cliente {
         this.cep = cep;
         this.telefone = telefone;
     }
+    // com a chave primária codigo
+    public Cliente(int codigo, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep, String telefone) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.municipio = municipio;
+        this.estado = estado;
+        this.cep = cep;
+        this.telefone = telefone;
+    }
 
     public Cliente() {
     }

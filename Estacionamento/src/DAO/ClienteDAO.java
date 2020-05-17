@@ -65,6 +65,39 @@ public class ClienteDAO {
         }
     }
     
+    public String editar(Cliente c) {
+        String sql;
+        PreparedStatement ps = null;
+
+        sql = "UPDATE tbl_cliente SET nome = ?, logradouro = ?, numero = ?, bairro = ?, municipio = ?, estado = ?, cep = ?, telefone = ? WHERE codigo = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, c.getNome());
+            ps.setString(2, c.getLogradouro());
+            ps.setString(3, c.getNumero());
+            ps.setString(4, c.getBairro());
+            ps.setString(5, c.getMunicipio());
+            ps.setString(6, c.getEstado());
+            ps.setString(7, c.getCep());
+            ps.setString(8, c.getTelefone());
+            ps.setInt(9, c.getCodigo());
+
+            int resultado = ps.executeUpdate();
+            System.out.println("resultado desta query: "+resultado);
+            System.out.println("\nOK, alterado com sucesso!");
+            ps.close();
+            return "ok";
+            
+        } catch (Exception e) {
+            System.out.println("Erro na operação de editar cliente: " + e.getMessage());
+            String mensagem = "Erro na operação de editar cliente: " + e.getMessage();
+            return mensagem;
+        }
+
+    }
+    
     public ArrayList<Cliente> listar() {
         ArrayList<Cliente> clientes = new ArrayList<>();
 
