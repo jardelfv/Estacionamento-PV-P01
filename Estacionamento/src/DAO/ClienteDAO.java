@@ -98,6 +98,29 @@ public class ClienteDAO {
 
     }
     
+    public String excluir(Cliente cli) {
+        String sql;
+        PreparedStatement ps = null;
+
+        sql = "delete from tbl_cliente where codigo = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, cli.getCodigo());
+            
+            ps.execute();
+            
+            System.out.println("\nOk, excluído com sucesso!");
+            ps.close();
+            return "ok";
+            
+        } catch (Exception e) {
+            System.out.println("Erro na operação de deletar cliente: " + e.getMessage());
+            String mensagem = "Erro na operação de deletar cliente: " + e.getMessage();
+            return mensagem;
+        }
+    }
+    
     public ArrayList<Cliente> listar() {
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -136,4 +159,35 @@ public class ClienteDAO {
         return clientes;
     }
     
+    public Cliente buscarClientePorCodigo(int codCliente) {
+        int compara = 0;
+        ArrayList<Cliente> listClientes = new ArrayList<>();
+        listClientes = null;
+        listClientes = listar();
+
+        Cliente cli = null;
+        if (listClientes.size() != 0) {
+            for (int i = 0; i < listClientes.size(); i++) {
+                if (listClientes.get(i).getCodigo() == codCliente) {
+                    compara = listClientes.get(i).getCodigo();
+
+                    cli = listClientes.get(i);
+                    break;
+                }
+            }
+
+            if (compara == codCliente) {
+                return cli;
+
+            } else {
+
+                return null;
+            }
+        } else {
+
+            return null;
+
+        }
+    }
+
 }

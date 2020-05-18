@@ -96,6 +96,29 @@ public class PatioDAO {
 
     }
     
+    public String excluir(Patio pat) {
+        String sql;
+        PreparedStatement ps = null;
+
+        sql = "delete from tbl_patio where codigo = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, pat.getCodigo());
+            
+            ps.execute();
+            
+            System.out.println("\nOk, excluído com sucesso!");
+            ps.close();
+            return "ok";
+            
+        } catch (Exception e) {
+            System.out.println("Erro na operação de deletar pátio: " + e.getMessage());
+            String mensagem = "Erro na operação de deletar pátio: " + e.getMessage();
+            return mensagem;
+        }
+    }
+    
     public ArrayList<Patio> listar() {
         ArrayList<Patio> patios = new ArrayList<>();
 
@@ -137,5 +160,29 @@ public class PatioDAO {
         return patios;
     }
     
+    public Patio buscarPorCodigo(int codigo) {
+        int compara = 0;
+        ArrayList<Patio> listPatios = new ArrayList<>();
+        listPatios = listar();
+
+        Patio pat = null;
+        if (listPatios.size() != 0) {
+            for (int i = 0; i < listPatios.size(); i++) {
+                if (listPatios.get(i).getCodigo() == codigo) {
+                    compara = listPatios.get(i).getCodigo();
+
+                    pat = listPatios.get(i);
+                    break;
+                }
+            }
+
+            return pat;
+
+        } else {
+
+            return null;
+
+        }
+    }
     
 }

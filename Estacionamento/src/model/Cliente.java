@@ -43,7 +43,11 @@ public class Cliente {
         this.cep = cep;
         this.telefone = telefone;
     }
-
+    
+    public Cliente(int codigo) {
+        this.codigo = codigo;
+    }
+    
     public Cliente() {
     }
     

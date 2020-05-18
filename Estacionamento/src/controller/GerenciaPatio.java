@@ -41,10 +41,28 @@ public class GerenciaPatio {
         }
     }
     
+    public String excluir(int codigo){
+        Patio c = new Patio(codigo);
+        String mensagem = patioDao.excluir(c);
+        
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
+    }
+    
     public ArrayList<Patio> listar(){
         patios = null;
         patios = patioDao.listar();
         
         return patios;
+    }
+    
+    public Patio buscarPorCodigo(int codigo) {
+        Patio p = patioDao.buscarPorCodigo(codigo);
+
+        return p;
+
     }
 }

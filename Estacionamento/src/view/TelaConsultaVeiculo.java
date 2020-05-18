@@ -21,6 +21,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
     ArrayList<Veiculo> veiculos = new ArrayList<>();
     GerenciaVeiculo gv = new GerenciaVeiculo();
     String modo;
+    String filtro = "geral";
     /**
      * Creates new form TelaConsultaCliente
      */
@@ -177,6 +178,11 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -294,9 +300,42 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_tfChassiActionPerformed
 
     private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
+        Veiculo v = gv.buscarPorPlaca(tfPesquisarPorPlaca.getText());
+        filtro = "pesquisa";
         
         
+        if (v != null) {
+            veiculos = null;
+            veiculos = gv.listar();
         
+            Object colunas[] = {"código","Placa","Marca","Modelo","Ano Fabricação","Ano Modelo","Chassi"};
+            DefaultTableModel modelo = new DefaultTableModel(colunas,0);
+            System.out.println("Tem esse código, indice: "+veiculos.indexOf(v.getCodigo()));
+            System.out.println("Placa encontrado: "+v.getPlaca());
+            Object linhas[] = new Object[] {
+                v.getCodigo(),
+                v.getPlaca(),
+                v.getMarca(),
+                v.getModelo(),
+                v.getAnoFabricacao(),
+                v.getAnoModelo(),
+                v.getChassi()
+            };
+            modelo.addRow(linhas);
+            tblPesquisaVeiculo.setModel(modelo);
+            
+            tfPlaca.setText(v.getPlaca());
+            tfMarca.setText(v.getMarca());
+            tfModelo.setText(v.getModelo());
+            tfAnoFabricacao.setText(String.valueOf(v.getAnoFabricacao()));
+            tfAnoModelo.setText(String.valueOf(v.getAnoModelo()));
+            tfChassi.setText(v.getChassi());
+
+        }else{
+            JOptionPane.showMessageDialog(this, "Não encontrado");
+        }
+
+
     }//GEN-LAST:event_btnPesquisaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -335,6 +374,8 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         carregarTabela();
+        filtro = "geral";
+        
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -357,22 +398,42 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
         veiculos = null;
         veiculos = gv.listar();
 
-        if(index >=0 && index < veiculos.size()){
-            Veiculo v = veiculos.get(index);
+        if (filtro.equals("geral")) {
+            if (index >= 0 && index < veiculos.size()) {
+                Veiculo v = veiculos.get(index);
 
-            tfPlaca.setText(v.getPlaca());
-            tfMarca.setText(v.getMarca());
-            tfModelo.setText(v.getModelo());
-            tfAnoFabricacao.setText(String.valueOf(v.getAnoFabricacao()));
-            tfAnoModelo.setText(String.valueOf(v.getAnoModelo()));
-            tfChassi.setText(v.getChassi());
-            
-            //modo = "selecao";
-            //manipulaBotoesComponentes();
+                tfPlaca.setText(v.getPlaca());
+                tfMarca.setText(v.getMarca());
+                tfModelo.setText(v.getModelo());
+                tfAnoFabricacao.setText(String.valueOf(v.getAnoFabricacao()));
+                tfAnoModelo.setText(String.valueOf(v.getAnoModelo()));
+                tfChassi.setText(v.getChassi());
+
+                //modo = "selecao";
+                //manipulaBotoesComponentes();
+            }
+        }
+
+
+    }//GEN-LAST:event_tblPesquisaVeiculoMouseClicked
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        String mensagem = gv.excluir(tfPlaca.getText());
+        modo = "excluir";
+        manipulaBotoesComponentes();
+        
+        if (mensagem.equals("ok")) {
+            carregarTabela();
+            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+            limpaTela();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
         }
         
+        modo = "navegar";
+        manipulaBotoesComponentes();
         
-    }//GEN-LAST:event_tblPesquisaVeiculoMouseClicked
+    }//GEN-LAST:event_btnExcluirActionPerformed
     
     public void carregarTabela(){
         ArrayList<Veiculo> veiculos = new ArrayList<>();
@@ -425,7 +486,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
                 tfPlaca.setEditable(false);
 
                 btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnExcluir.setEnabled(true);
                 break;
 
             case "excluir":
@@ -439,7 +500,7 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
                 tfPlaca.setEditable(false);
 
                 btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnExcluir.setEnabled(true);
                 break;
 
             case "selecao":

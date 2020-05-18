@@ -40,15 +40,24 @@ public class GerenciaCliente {
         }
     }
     
-    public Object consultar(int codigo){
+    public String excluir(int codigo){
+        Cliente c = new Cliente(codigo);
+        String mensagem = cliDao.excluir(c);
         
-        return true;
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
     }
     
-    public boolean excluir(int codigo){
-        
-        return true;
+    public Cliente buscarPorCodigo(int codigo) {
+        Cliente c = cliDao.buscarClientePorCodigo(codigo);
+
+        return c;
+
     }
+    
     
     // verificar se já existe o cliente na base de dados
     public boolean existeCliente(int codigo){

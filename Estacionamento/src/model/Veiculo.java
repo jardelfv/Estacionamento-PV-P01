@@ -27,7 +27,11 @@ public class Veiculo {
         this.chassi = chassi;
         this.placa = placa;
     }
-
+    
+    public Veiculo(String placa) {
+        this.placa = placa;
+    }
+    
     public Veiculo() {
     }
     

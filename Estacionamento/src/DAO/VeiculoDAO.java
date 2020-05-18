@@ -87,6 +87,29 @@ public class VeiculoDAO {
         }
 
     }
+    
+    public String excluir(Veiculo vei) {
+        String sql;
+        PreparedStatement ps = null;
+
+        sql = "delete from tbl_veiculo where placa = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, vei.getPlaca());
+
+            ps.execute();
+            System.out.printf("Veículo %s, Placa %s ", vei.getModelo(), vei.getPlaca());
+            System.out.println("\nOK, excluído com sucesso!");
+            ps.close();
+            return "ok";
+            
+        } catch (Exception e) {
+            System.out.println("Erro na operação de deletar veículo: " + e.getMessage());
+            String mensagem = "Erro na operação de deletar veículo: " + e.getMessage();
+            return mensagem;
+        }
+    }
 
     public ArrayList<Veiculo> listar() {
         ArrayList<Veiculo> carros = new ArrayList<>();
@@ -123,6 +146,34 @@ public class VeiculoDAO {
             System.err.println("Erro na operação de listar veículos: " + e.getMessage());
         }
         return carros;
+    }
+
+    public Veiculo buscarVeiculoPorPlaca(String placa) {
+
+        String compara = null;
+        ArrayList<Veiculo> listVeiculos = new ArrayList<>();
+        listVeiculos = listar();
+
+        Veiculo veic = null;
+
+        if (listVeiculos.size() != 0) {
+            for (Veiculo v : listVeiculos) {
+                compara = v.getPlaca();
+
+                if (compara.equals(placa)) {
+                    veic = v;
+                    break;
+                }
+
+            }
+
+            return veic;
+
+        } else {
+
+            return null;
+        }
+
     }
 
 }

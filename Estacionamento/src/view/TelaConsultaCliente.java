@@ -19,6 +19,8 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
     ArrayList<Cliente> arrayClientes = new ArrayList<>();
     GerenciaCliente gc = new GerenciaCliente();
     String modo;
+    String filtro = "geral";
+    
     /**
      * Creates new form TelaConsultaCliente
      */
@@ -183,6 +185,11 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("CÓDIGO:");
 
@@ -312,7 +319,44 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_tfEstadoActionPerformed
 
     private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-        // TODO add your handling code here:
+        Cliente c = gc.buscarPorCodigo(Integer.parseInt(tfPesquisarPorCodigo.getText()));
+        filtro = "pesquisa";
+        if (c != null) {
+            arrayClientes = null;
+            arrayClientes = gc.listar();
+
+            Object colunas[] = {"código", "nome", "logradouro", "número", "bairro", "município", "estado", "CEP", "telefone"};
+            DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+            System.out.println("Tem esse código, indice: "+arrayClientes.indexOf(c.getCodigo()));
+            System.out.println("Código encontrado: "+c.getCodigo());
+            Object linhas[] = new Object[]{
+                c.getCodigo(),
+                c.getNome(),
+                c.getLogradouro(),
+                c.getNumero(),
+                c.getBairro(),
+                c.getMunicipio(),
+                c.getEstado(),
+                c.getCep(),
+                c.getTelefone()
+            };
+            modelo.addRow(linhas);
+
+            tblPesquisaCliente.setModel(modelo);
+            tfNome.setText(c.getNome());
+            tfLogradouro.setText(c.getLogradouro());
+            tfNumero.setText(c.getNumero());
+            tfMunicipio.setText(c.getMunicipio());
+            tfBairro.setText(c.getBairro());
+            tfEstado.setText(c.getEstado());
+            tfCep.setText(c.getCep());
+            tfTelefone.setText(c.getTelefone());
+            tfCodigo.setText(String.valueOf(c.getCodigo()));
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Não encontrado");
+        }
+
     }//GEN-LAST:event_btnPesquisaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -341,6 +385,7 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         carregarTabela();
+        filtro = "geral";
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -354,20 +399,22 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         arrayClientes = null;
         arrayClientes = gc.listar();
 
-        if(index >=0 && index < arrayClientes.size()){
-            Cliente c = arrayClientes.get(index);
+        if (filtro.equals("geral")) {
+            if (index >= 0 && index < arrayClientes.size()) {
+                Cliente c = arrayClientes.get(index);
 
-            tfNome.setText(c.getNome());
-            tfLogradouro.setText(c.getLogradouro());
-            tfNumero.setText(c.getNumero());
-            tfMunicipio.setText(c.getMunicipio());
-            tfBairro.setText(c.getBairro());
-            tfEstado.setText(c.getEstado());
-            tfCep.setText(c.getCep());
-            tfTelefone.setText(c.getTelefone());
-            tfCodigo.setText(String.valueOf(c.getCodigo()));
+                tfNome.setText(c.getNome());
+                tfLogradouro.setText(c.getLogradouro());
+                tfNumero.setText(c.getNumero());
+                tfMunicipio.setText(c.getMunicipio());
+                tfBairro.setText(c.getBairro());
+                tfEstado.setText(c.getEstado());
+                tfCep.setText(c.getCep());
+                tfTelefone.setText(c.getTelefone());
+                tfCodigo.setText(String.valueOf(c.getCodigo()));
+            }
         }
-        
+
     }//GEN-LAST:event_tblPesquisaClienteMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -377,6 +424,25 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         manipulaBotoesComponentes();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+        String mensagem = gc.excluir(Integer.parseInt(tfCodigo.getText()));
+        modo = "excluir";
+        manipulaBotoesComponentes();
+        
+        if (mensagem.equals("ok")) {
+            carregarTabela();
+            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+            limpaTela();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
+        }
+        
+        modo = "navegar";
+        manipulaBotoesComponentes();
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
     
     public void carregarTabela(){
         ArrayList<Cliente> arrayClientes = new ArrayList<>();
@@ -450,12 +516,12 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 tfCodigo.setEditable(false);
 
                 btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnExcluir.setEnabled(true);
                 break;
 
             case "excluir":
                 btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(false);
+                btnCancelar.setEnabled(true);
                 
                 tfNome.setEditable(false);
                 tfLogradouro.setEditable(false);
@@ -467,8 +533,8 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 tfTelefone.setEditable(false);
                 tfCodigo.setEditable(false);
 
-                btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnEditar.setEnabled(true);
+                btnExcluir.setEnabled(true);
                 break;
 
             case "selecao":

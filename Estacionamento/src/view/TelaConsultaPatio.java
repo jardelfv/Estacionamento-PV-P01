@@ -20,6 +20,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
     ArrayList<Patio> arrayPatios = new ArrayList<>();
     GerenciaPatio gp = new GerenciaPatio();
     String modo;
+    String filtro = "geral";
     /**
      * Creates new form TelaConsultaCliente
      */
@@ -192,6 +193,11 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("CÓDIGO:");
 
@@ -332,7 +338,45 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
     }//GEN-LAST:event_tfEstadoActionPerformed
 
     private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-        // TODO add your handling code here:
+        Patio p = gp.buscarPorCodigo(Integer.parseInt(tfPesquisarPorCodigo.getText()));
+        filtro = "pesquisa";
+
+        if (p != null) {
+            Object colunas[] = {"Código", "Nome", "Logradouro", "Número", "Bairro", "Município", "Estado", "CEP", "Cap. Veículos", "Diária R$", "Lotação"};
+            DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+
+            Object linhas[] = new Object[]{
+                p.getCodigo(),
+                p.getNome(),
+                p.getLogradouro(),
+                p.getNumero(),
+                p.getBairro(),
+                p.getMunicipio(),
+                p.getEstado(),
+                p.getCep(),
+                p.getCapacidadeDeVeiculos(),
+                p.getValorDaDiaria(),
+                p.getLotacao()
+            };
+            modelo.addRow(linhas);
+            tblPesquisaPatio.setModel(modelo);
+            
+            tfNome.setText(p.getNome());
+            tfLogradouro.setText(p.getLogradouro());
+            tfNumero.setText(p.getNumero());
+            tfMunicipio.setText(p.getMunicipio());
+            tfBairro.setText(p.getBairro());
+            tfEstado.setText(p.getEstado());
+            tfCep.setText(p.getCep());
+            tfValorDaDiaria.setText(String.valueOf(p.getValorDaDiaria()));
+            tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
+            tfLotacao.setText(String.valueOf(p.getLotacao()));
+            tfCodigo.setText(String.valueOf(p.getCodigo()));
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Não encontrado");
+        }
+
     }//GEN-LAST:event_btnPesquisaActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -361,27 +405,30 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         carregarTabela();
+        filtro = "geral";
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void tblPesquisaPatioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesquisaPatioMouseClicked
         int index = tblPesquisaPatio.getSelectedRow();
         arrayPatios = null;
         arrayPatios = gp.listar();
-
-        if(index >=0 && index < arrayPatios.size()){
-            Patio p = arrayPatios.get(index);
-
-            tfNome.setText(p.getNome());
-            tfLogradouro.setText(p.getLogradouro());
-            tfNumero.setText(p.getNumero());
-            tfMunicipio.setText(p.getMunicipio());
-            tfBairro.setText(p.getBairro());
-            tfEstado.setText(p.getEstado());
-            tfCep.setText(p.getCep());
-            tfValorDaDiaria.setText(String.valueOf(p.getValorDaDiaria()));
-            tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
-            tfLotacao.setText(String.valueOf(p.getLotacao()));
-            tfCodigo.setText(String.valueOf(p.getCodigo()));
+        
+        if (filtro.equals("geral")) {
+            if (index >= 0 && index < arrayPatios.size()) {
+                Patio p = arrayPatios.get(index);
+                
+                tfNome.setText(p.getNome());
+                tfLogradouro.setText(p.getLogradouro());
+                tfNumero.setText(p.getNumero());
+                tfMunicipio.setText(p.getMunicipio());
+                tfBairro.setText(p.getBairro());
+                tfEstado.setText(p.getEstado());
+                tfCep.setText(p.getCep());
+                tfValorDaDiaria.setText(String.valueOf(p.getValorDaDiaria()));
+                tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
+                tfLotacao.setText(String.valueOf(p.getLotacao()));
+                tfCodigo.setText(String.valueOf(p.getCodigo()));
+            }
         }
         
     }//GEN-LAST:event_tblPesquisaPatioMouseClicked
@@ -399,9 +446,27 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         manipulaBotoesComponentes();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        String mensagem = gp.excluir(Integer.parseInt(tfCodigo.getText()));
+        modo = "excluir";
+        manipulaBotoesComponentes();
+        
+        if (mensagem.equals("ok")) {
+            carregarTabela();
+            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+            limpaTela();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
+        }
+        
+        modo = "navegar";
+        manipulaBotoesComponentes();
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
     
     public void carregarTabela(){
-        
+        arrayPatios = null;
         arrayPatios = gp.listar();
         
         Object colunas[] = {"Código","Nome","Logradouro","Número","Bairro","Município","Estado","CEP","Cap. Veículos","Diária R$","Lotação"};
@@ -479,7 +544,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 tfCodigo.setEditable(false);
 
                 btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnExcluir.setEnabled(true);
                 break;
 
             case "excluir":
@@ -499,7 +564,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 tfCodigo.setEditable(false);
 
                 btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(false);
+                btnExcluir.setEnabled(true);
                 break;
 
             case "selecao":

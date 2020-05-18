@@ -48,6 +48,10 @@ public class Patio {
         this.codigo = codigo;
     }
     
+    public Patio(int codigo) {
+        this.codigo = codigo;
+    }
+    
     public Patio() {
     }
     

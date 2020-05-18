@@ -44,11 +44,29 @@ public class GerenciaVeiculo {
         }
     }
     
+    public String excluir(String placa){
+        Veiculo v = new Veiculo(placa);
+        String mensagem = veicDAO.excluir(v);
+        
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
+    }
+    
     public ArrayList<Veiculo> listar(){
         arrayVeiculos = null;
         arrayVeiculos = veicDAO.listar();
         
         return arrayVeiculos;
+    }
+    
+    public Veiculo buscarPorPlaca(String placa) {
+        Veiculo v = veicDAO.buscarVeiculoPorPlaca(placa);
+
+        return v;
+
     }
     
 }

@@ -51,7 +51,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -106,6 +106,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,11 +212,28 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         String mensagem = gc.incluir(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
         if(mensagem.equals("ok")){
             JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
+            limpaTela();
         }else{
             JOptionPane.showMessageDialog(this, "Algo aconteceu, "+mensagem);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpaTela();
+        
+    }//GEN-LAST:event_btnCancelarActionPerformed
+    
+    public void limpaTela(){
+        tfNome.setText("");
+        tfLogradouro.setText("");
+        tfNumero.setText("");
+        tfMunicipio.setText("");
+        tfBairro.setText("");
+        tfEstado.setText("");
+        tfCep.setText("");
+        tfTelefone.setText("");
+        
+    }
     /**
      * @param args the command line arguments
      */
