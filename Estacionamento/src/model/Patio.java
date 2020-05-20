@@ -144,7 +144,12 @@ public class Patio {
         this.cep = cep;
     }
 
-        
+    @Override
+    public String toString() {
+        return String.valueOf(getCodigo()); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
     
 }

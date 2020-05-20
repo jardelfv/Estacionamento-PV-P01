@@ -39,6 +39,8 @@ public class TelaMain extends javax.swing.JFrame {
         menuPatio = new javax.swing.JMenu();
         menuPatioCadastrar = new javax.swing.JMenuItem();
         menuPatioConsultar = new javax.swing.JMenuItem();
+        menuConta = new javax.swing.JMenu();
+        menuContaCadastrar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +116,18 @@ public class TelaMain extends javax.swing.JFrame {
 
         jMenuBar1.add(menuPatio);
 
+        menuConta.setText("Conta");
+
+        menuContaCadastrar.setText("Cadastrar");
+        menuContaCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuContaCadastrarActionPerformed(evt);
+            }
+        });
+        menuConta.add(menuContaCadastrar);
+
+        jMenuBar1.add(menuConta);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -165,6 +179,11 @@ public class TelaMain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuPatioConsultarActionPerformed
 
+    private void menuContaCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuContaCadastrarActionPerformed
+        new TelaCadastroConta().setVisible(true);
+        
+    }//GEN-LAST:event_menuContaCadastrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +226,8 @@ public class TelaMain extends javax.swing.JFrame {
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuItem menuClienteCadastrar;
     private javax.swing.JMenuItem menuClienteConsultar;
+    private javax.swing.JMenu menuConta;
+    private javax.swing.JMenuItem menuContaCadastrar;
     private javax.swing.JMenu menuPatio;
     private javax.swing.JMenuItem menuPatioCadastrar;
     private javax.swing.JMenuItem menuPatioConsultar;

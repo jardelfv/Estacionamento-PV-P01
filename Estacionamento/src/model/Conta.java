@@ -30,6 +30,11 @@ public class Conta {
         this.paga = paga;
     }
 
+    public Conta(int codigo) {
+        this.codigo = codigo;
+    }
+    
+
     public Veiculo getVeiculo() {
         return veiculo;
     }
@@ -86,7 +91,7 @@ public class Conta {
         this.codigo = codigo;
     }
 
-    public boolean isPaga() {
+    public boolean getPaga() {
         return paga;
     }
 
