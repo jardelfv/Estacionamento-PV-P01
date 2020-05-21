@@ -7,6 +7,7 @@ package view;
 
 import DAO.PatioDAO;
 import controller.GerenciaCliente;
+import controller.GerenciaConta;
 import controller.GerenciaVeiculo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ public class TelaCadastroConta extends javax.swing.JFrame {
     GerenciaVeiculo gv = new GerenciaVeiculo();
     ArrayList<Patio> patios = new ArrayList<>();
     PatioDAO patioDao = new PatioDAO();
+    GerenciaConta gConta = new GerenciaConta();
     String modo;
     String filtro = "geral";
     
@@ -52,28 +54,25 @@ public class TelaCadastroConta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        cbNomePatio = new javax.swing.JComboBox<>();
-        tfNomePatio = new javax.swing.JTextField();
-        btnSelecionar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPesquisaCliente = new javax.swing.JTable();
-        btnPesquisa = new javax.swing.JButton();
+        btnPesquisaCliente = new javax.swing.JButton();
         tfPesquisarPorCodigo = new javax.swing.JTextField();
         btnAtualizar = new javax.swing.JButton();
-        tfCodigo = new javax.swing.JTextField();
-        tfNome = new javax.swing.JTextField();
+        tfCodigoCliente = new javax.swing.JTextField();
+        tfNomeCliente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         tfPesquisarPorPlaca = new javax.swing.JTextField();
-        btnPesquisa1 = new javax.swing.JButton();
+        btnPesquisaVeiculo = new javax.swing.JButton();
         btnAtualizar1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPesquisaVeiculo = new javax.swing.JTable();
@@ -82,14 +81,31 @@ public class TelaCadastroConta extends javax.swing.JFrame {
         tfModelo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        cbNomePatio = new javax.swing.JComboBox<>();
+        btnSelecionar = new javax.swing.JButton();
+        tfCodigoPatio = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnDiarias = new javax.swing.JTextField();
+        btnAno = new javax.swing.JTextField();
+        btnMes = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        rbSim = new javax.swing.JRadioButton();
+        rbNao = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Cadastro Pátio");
+        jLabel1.setText("Cadastro Conta");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -107,26 +123,6 @@ public class TelaCadastroConta extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
-
-        jLabel6.setText("Escolha o Pátio:");
-
-        cbNomePatio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbNomePatioMouseClicked(evt);
-            }
-        });
-        cbNomePatio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbNomePatioActionPerformed(evt);
-            }
-        });
-
-        btnSelecionar.setText("Selecionar");
-        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelecionarActionPerformed(evt);
-            }
-        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Escolher Cliente"));
 
@@ -160,10 +156,10 @@ public class TelaCadastroConta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblPesquisaCliente);
 
-        btnPesquisa.setText("Pesquisar");
-        btnPesquisa.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisaCliente.setText("Pesquisar");
+        btnPesquisaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisaActionPerformed(evt);
+                btnPesquisaClienteActionPerformed(evt);
             }
         });
 
@@ -191,16 +187,16 @@ public class TelaCadastroConta extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPesquisa)
+                                .addComponent(btnPesquisaCliente)
                                 .addGap(37, 37, 37)
                                 .addComponent(btnAtualizar))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -210,7 +206,7 @@ public class TelaCadastroConta extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPesquisa)
+                    .addComponent(btnPesquisaCliente)
                     .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAtualizar))
                 .addGap(18, 18, 18)
@@ -221,8 +217,8 @@ public class TelaCadastroConta extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -247,10 +243,10 @@ public class TelaCadastroConta extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Escolher Veículo"));
 
-        btnPesquisa1.setText("Pesquisar");
-        btnPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisaVeiculo.setText("Pesquisar");
+        btnPesquisaVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisa1ActionPerformed(evt);
+                btnPesquisaVeiculoActionPerformed(evt);
             }
         });
 
@@ -310,7 +306,7 @@ public class TelaCadastroConta extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(tfPesquisarPorPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPesquisa1)
+                                .addComponent(btnPesquisaVeiculo)
                                 .addGap(41, 41, 41)
                                 .addComponent(btnAtualizar1)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -332,7 +328,7 @@ public class TelaCadastroConta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfPesquisarPorPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisa1)
+                    .addComponent(btnPesquisaVeiculo)
                     .addComponent(btnAtualizar1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,23 +357,131 @@ public class TelaCadastroConta extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Veículo", jPanel5);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Escolher Pátio"));
+
+        jLabel6.setText("Escolha o Pátio:");
+
+        cbNomePatio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbNomePatioMouseClicked(evt);
+            }
+        });
+        cbNomePatio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNomePatioActionPerformed(evt);
+            }
+        });
+
+        btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Código:");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbNomePatio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(tfCodigoPatio, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSelecionar))
+                    .addComponent(jLabel7))
+                .addContainerGap(571, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbNomePatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addGap(8, 8, 8)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfCodigoPatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSelecionar))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 877, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel6);
+        jTabbedPane1.addTab("Pátio", jPanel6);
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+
+        jLabel8.setText("Diárias:");
+
+        jLabel9.setText("Ano:");
+
+        jLabel10.setText("Mês:");
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Conta Paga?"));
+
+        buttonGroup1.add(rbSim);
+        rbSim.setText("Sim");
+
+        buttonGroup1.add(rbNao);
+        rbNao.setText("Não");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbNao)
+                    .addComponent(rbSim))
+                .addContainerGap(241, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(rbSim)
+                .addGap(18, 18, 18)
+                .addComponent(rbNao)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -385,36 +489,64 @@ public class TelaCadastroConta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbNomePatio, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfNomePatio, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSelecionar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar)
+                .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(btnDiarias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAno, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(btnMes, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1)
-                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDiarias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(9, 125, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbNomePatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNomePatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSelecionar))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -430,51 +562,62 @@ public class TelaCadastroConta extends javax.swing.JFrame {
             if (index >= 0 && index < arrayClientes.size()) {
                 Cliente c = arrayClientes.get(index);
 
-                tfNome.setText(c.getNome());
-                tfCodigo.setText(String.valueOf(c.getCodigo()));
+                tfNomeCliente.setText(c.getNome());
+                tfCodigoCliente.setText(String.valueOf(c.getCodigo()));
             }
         }
     }//GEN-LAST:event_tblPesquisaClienteMouseClicked
 
-    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-        Cliente c = gc.buscarPorCodigo(Integer.parseInt(tfPesquisarPorCodigo.getText()));
-        filtro = "pesquisa";
-        if (c != null) {
-            arrayClientes = null;
-            arrayClientes = gc.listar();
+    private void btnPesquisaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaClienteActionPerformed
+        String pesquisar = tfPesquisarPorCodigo.getText();
+        try {
+            int codigo = Integer.valueOf(pesquisar).intValue();
 
-            Object colunas[] = {"código", "nome", "logradouro", "número", "bairro", "município", "estado", "CEP", "telefone"};
-            DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
-            System.out.println("Tem esse código, indice: "+arrayClientes.indexOf(c.getCodigo()));
-            System.out.println("Código encontrado: "+c.getCodigo());
-            Object linhas[] = new Object[]{
-                c.getCodigo(),
-                c.getNome(),
-                c.getLogradouro(),
-                c.getNumero(),
-                c.getBairro(),
-                c.getMunicipio(),
-                c.getEstado(),
-                c.getCep(),
-                c.getTelefone()
-            };
-            modelo.addRow(linhas);
+            Cliente c = gc.buscarPorCodigo(codigo);
+            filtro = "pesquisa";
+            if (c != null) {
+                arrayClientes = null;
+                arrayClientes = gc.listar();
 
-            tblPesquisaCliente.setModel(modelo);
-            tfNome.setText(c.getNome());
-            tfCodigo.setText(String.valueOf(c.getCodigo()));
+                Object colunas[] = {"código", "nome", "logradouro", "número", "bairro", "município", "estado", "CEP", "telefone"};
+                DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+                System.out.println("Tem esse código, indice: " + arrayClientes.indexOf(c.getCodigo()));
+                System.out.println("Código encontrado: " + c.getCodigo());
+                Object linhas[] = new Object[]{
+                    c.getCodigo(),
+                    c.getNome(),
+                    c.getLogradouro(),
+                    c.getNumero(),
+                    c.getBairro(),
+                    c.getMunicipio(),
+                    c.getEstado(),
+                    c.getCep(),
+                    c.getTelefone()
+                };
+                modelo.addRow(linhas);
 
-        }else{
-            JOptionPane.showMessageDialog(this, "Não encontrado");
+                tblPesquisaCliente.setModel(modelo);
+                tfNomeCliente.setText(c.getNome());
+                tfCodigoCliente.setText(String.valueOf(c.getCodigo()));
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Não encontrado");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ATENÇÃO! Digite somente números");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "ATENÇÃO! Tente novamente");
         }
-    }//GEN-LAST:event_btnPesquisaActionPerformed
+
+    }//GEN-LAST:event_btnPesquisaClienteActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         carregarTabelaCliente();
         filtro = "geral";
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
-    private void btnPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisa1ActionPerformed
+    private void btnPesquisaVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaVeiculoActionPerformed
         Veiculo v = gv.buscarPorPlaca(tfPesquisarPorPlaca.getText());
         filtro = "pesquisa";
 
@@ -505,7 +648,7 @@ public class TelaCadastroConta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Não encontrado");
         }
 
-    }//GEN-LAST:event_btnPesquisa1ActionPerformed
+    }//GEN-LAST:event_btnPesquisaVeiculoActionPerformed
 
     private void btnAtualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizar1ActionPerformed
         carregarTabelaVeiculo();
@@ -525,8 +668,6 @@ public class TelaCadastroConta extends javax.swing.JFrame {
                 tfPlaca.setText(v.getPlaca());
                 tfModelo.setText(v.getModelo());
 
-                //modo = "selecao";
-                //manipulaBotoesComponentes();
             }
         }
 
@@ -543,9 +684,23 @@ public class TelaCadastroConta extends javax.swing.JFrame {
     }//GEN-LAST:event_cbNomePatioMouseClicked
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        tfNomePatio.setText((String) cbNomePatio.getSelectedItem());
+        Patio pselecionado = (Patio) this.cbNomePatio.getSelectedItem();
+        tfCodigoPatio.setText(String.valueOf(pselecionado.getCodigo()));
+        
         
     }//GEN-LAST:event_btnSelecionarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if(tfCodigoCliente.getText().length() > 0 
+                && tfPlaca.getText().length() > 0 
+                && tfCodigoPatio.getText().length() > 0){
+            //String mensagem = gConta.incluir(SOMEBITS, modo, WIDTH, ALLBITS, ABORT, WIDTH, rootPaneCheckingEnabled)
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Atenção, preecha todos os campos");
+        }
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
     public void carregarTabelaCliente(){
         ArrayList<Cliente> arrayClientes = new ArrayList<>();
         arrayClientes = gc.listar();
@@ -597,9 +752,9 @@ public class TelaCadastroConta extends javax.swing.JFrame {
     public void manipulaComponentes() {
         tfModelo.setEditable(false);
         tfPlaca.setEditable(false);
-
-        tfNome.setEditable(false);
-        tfCodigo.setEditable(false);
+        tfNomeCliente.setEditable(false);
+        tfCodigoCliente.setEditable(false);
+        tfCodigoPatio.setEditable(false);
     }
     
     public void carregarCombobox(){
@@ -613,8 +768,8 @@ public class TelaCadastroConta extends javax.swing.JFrame {
         */
         for (Patio p : arrayCB) {
             patioComboBoxModel.addPatio(p);
-            //cbNomePatio.addItem(String.valueOf(p));
             this.cbNomePatio.setModel(patioComboBoxModel);
+            
         }
     }
     /**
@@ -653,33 +808,47 @@ public class TelaCadastroConta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField btnAno;
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnAtualizar1;
-    private javax.swing.JButton btnPesquisa;
-    private javax.swing.JButton btnPesquisa1;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JTextField btnDiarias;
+    private javax.swing.JTextField btnMes;
+    private javax.swing.JButton btnPesquisaCliente;
+    private javax.swing.JButton btnPesquisaVeiculo;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSelecionar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbNomePatio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JRadioButton rbNao;
+    private javax.swing.JRadioButton rbSim;
     private javax.swing.JTable tblPesquisaCliente;
     private javax.swing.JTable tblPesquisaVeiculo;
-    private javax.swing.JTextField tfCodigo;
+    private javax.swing.JTextField tfCodigoCliente;
+    private javax.swing.JTextField tfCodigoPatio;
     private javax.swing.JTextField tfModelo;
-    private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfNomePatio;
+    private javax.swing.JTextField tfNomeCliente;
     private javax.swing.JTextField tfPesquisarPorCodigo;
     private javax.swing.JTextField tfPesquisarPorPlaca;
     private javax.swing.JTextField tfPlaca;
