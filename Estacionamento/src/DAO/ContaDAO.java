@@ -56,5 +56,37 @@ public class ContaDAO {
             return mensagem;
         }
     }
+    
+    public String cadastrarConta(Conta cont) {
+
+        String sql;
+        PreparedStatement ps;
+
+        sql = "INSERT INTO tbl_conta(cod_cliente, placa_veiculo, cod_patio, diarias, ano, mes, paga) VALUES (?,?,?,?,?,?,?)";
+
+        try {
+            ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, cont.getCliente().getCodigo());
+            ps.setString(2, cont.getVeiculo().getPlaca());
+            ps.setInt(3, cont.getPatio().getCodigo());
+            ps.setInt(4, cont.getDiarias());
+            ps.setInt(5, cont.getAno());
+            ps.setInt(6, cont.getMes());
+            ps.setBoolean(7, cont.getPaga());
+            
+            ps.execute();
+            System.out.println("\n\nConta adicionada com sucesso!");
+            ps.close();
+            
+            return "ok";
+
+        } catch (Exception e) {
+            System.out.println("Erro na operação SQL de cadastrar conta: " + e.getMessage() + e.getClass());
+            String mensagem = "Erro na operação de cadastrar conta: "+e.getMessage();
+            
+            return mensagem;
+        }
+    }
 
 }
