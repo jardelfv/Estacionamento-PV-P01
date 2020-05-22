@@ -88,5 +88,121 @@ public class ContaDAO {
             return mensagem;
         }
     }
+    
+    public ArrayList<Conta> listar() {
+        ArrayList<Conta> contas = new ArrayList<>();
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT codigo, cod_cliente, placa_veiculo, cod_patio FROM tbl_conta";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            VeiculoDAO veicD = new VeiculoDAO();
+            ClienteDAO cliD = new ClienteDAO();
+            PatioDAO patD = new PatioDAO();
+
+            while (rs.next()) {
+                
+                Cliente c = cliD.buscarClientePorCodigo(rs.getInt("cod_cliente"));
+		Veiculo v = veicD.buscarVeiculoPorPlaca(rs.getString("placa_veiculo"));
+                Patio p = patD.buscarPorCodigo(rs.getInt("cod_patio"));
+                
+                Conta cont = new Conta();
+                
+                cont.setCodigo(rs.getInt("codigo"));
+                cont.setCliente(c);
+                cont.setVeiculo(v);
+                cont.setPatio(p);
+                
+                cont.setDiarias(rs.getInt("diarias"));
+                cont.setAno(rs.getInt("ano"));
+                cont.setMes(rs.getInt("mes"));
+                cont.setPaga(rs.getBoolean("paga"));
+
+                contas.add(cont);
+
+            }
+            rs.close();
+            ps.close();
+            
+        } catch (Exception e) {
+            System.err.println("Erro na operação de listar conta: " + e.getMessage());
+        }
+
+        return contas;
+    }
+    public ArrayList<Conta> listar2() {
+        ArrayList<Conta> contas = new ArrayList<>();
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        
+        String sql = "SELECT * FROM tbl_conta co, tbl_cliente ci WHERE co.cod_cliente = ci.codigo";
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                Conta cont = new Conta();
+                
+                cont.setCodigo(rs.getInt("codigo"));
+                cont.getCliente().setCodigo(rs.getInt("cod_cliente"));
+                cont.getCliente().setNome("nome");
+                cont.getVeiculo().setPlaca(rs.getString("placa_veiculo"));
+                cont.getPatio().setCodigo(rs.getInt("cod_patio"));
+                
+                cont.setDiarias(rs.getInt("diarias"));
+                cont.setAno(rs.getInt("ano"));
+                cont.setMes(rs.getInt("mes"));
+                cont.setPaga(rs.getBoolean("paga"));
+
+                contas.add(cont);
+
+            }
+            rs.close();
+            ps.close();
+            
+        } catch (Exception e) {
+            System.err.println("Erro na operação de listar conta: " + e.getMessage());
+        }
+
+        return contas;
+    }
+    
+    public Conta buscarContaPorCodigo(int codConta) {
+        int compara = 0;
+        ArrayList<Conta> listContas = new ArrayList<>();
+        listContas = null;
+        listContas = listar();
+
+        Conta cont = null;
+        if (listContas.size() != 0) {
+            for (int i = 0; i < listContas.size(); i++) {
+                if (listContas.get(i).getCodigo() == codConta) {
+                    compara = listContas.get(i).getCodigo();
+
+                    cont = listContas.get(i);
+                    break;
+                }
+            }
+
+            if (compara == codConta) {
+                return cont;
+
+            } else {
+
+                return null;
+            }
+        } else {
+
+            return null;
+
+        }
+    }
 
 }

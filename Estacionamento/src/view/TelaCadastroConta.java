@@ -596,7 +596,7 @@ public class TelaCadastroConta extends javax.swing.JFrame {
 
                 tfPlaca.setText(v.getPlaca());
                 tfModelo.setText(v.getModelo());
-
+                
             }
         }
 
@@ -629,8 +629,10 @@ public class TelaCadastroConta extends javax.swing.JFrame {
             String mensagem = gConta.cadastrarConta(codCliente, placa, codPatio);
             if(mensagem.equals("ok")){
                 JOptionPane.showMessageDialog(this, "Conta cadastrada com sucesso");
+                
             }else{
                 JOptionPane.showMessageDialog(this, "Não foi possível cadastrar: "+mensagem);
+                
             }
             
         }else{

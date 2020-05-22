@@ -54,4 +54,18 @@ public class GerenciaConta {
         
     }
     
+    public Conta buscarPorCodigo(int codigo) {
+        Conta c = contaDAO.buscarContaPorCodigo(codigo);
+
+        return c;
+
+    }
+    
+    public ArrayList<Conta> listar(){
+        contas = null;
+        contas = contaDAO.listar2();
+        
+        return contas;
+    }
+    
 }

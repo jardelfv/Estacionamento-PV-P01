@@ -33,6 +33,10 @@ public class Conta {
     public Conta(int codigo) {
         this.codigo = codigo;
     }
+
+    public Conta() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
     public Veiculo getVeiculo() {
