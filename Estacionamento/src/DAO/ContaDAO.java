@@ -95,7 +95,7 @@ public class ContaDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT codigo, cod_cliente, placa_veiculo, cod_patio FROM tbl_conta";
+        String sql = "SELECT codigo, cod_cliente, placa_veiculo, cod_patio, diarias, ano, mes, paga FROM tbl_conta";
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -118,6 +118,7 @@ public class ContaDAO {
                 cont.setPatio(p);
                 
                 cont.setDiarias(rs.getInt("diarias"));
+                System.out.println("passou diarias");
                 cont.setAno(rs.getInt("ano"));
                 cont.setMes(rs.getInt("mes"));
                 cont.setPaga(rs.getBoolean("paga"));
