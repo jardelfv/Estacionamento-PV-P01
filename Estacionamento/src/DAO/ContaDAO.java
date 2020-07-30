@@ -130,6 +130,7 @@ public class ContaDAO {
             
         } catch (Exception e) {
             System.err.println("Erro na operação de listar conta: " + e.getMessage());
+            System.err.println("Como aconteceu: " + e.getMessage() + e.getCause());
         }
 
         return contas;
@@ -169,6 +170,7 @@ public class ContaDAO {
             
         } catch (Exception e) {
             System.err.println("Erro na operação de listar conta: " + e.getMessage());
+            System.err.println("Como aconteceu: " + e.getMessage() + e.getCause() + e.getClass()+e.toString());
         }
 
         return contas;

@@ -26,7 +26,7 @@ public class Conexao {
             prop.put("charset", "UTF-8");
             //prop.put("lc_ctype", "ISO8859_1");
             
-            return DriverManager.getConnection("jdbc:postgresql://192.168.1.5/bd_estacionamento", prop);
+            return DriverManager.getConnection("jdbc:postgresql://postgresql-11400-0.cloudclusters.net:11400/bd_estacionamento", prop);
             //return DriverManager.getConnection("jdbc:postgresql://35.247.205.11/bd_estacionamento", prop);
             //"jdbc:postgresql://localhost:5432/DB_locacao", prop);
             //"jdbc:postgresql://locacao.postgres.uhserver.com/locacao"

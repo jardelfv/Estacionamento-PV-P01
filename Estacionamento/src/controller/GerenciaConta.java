@@ -63,7 +63,7 @@ public class GerenciaConta {
     
     public ArrayList<Conta> listar(){
         contas = null;
-        contas = contaDAO.listar2();
+        contas = contaDAO.listar();
         
         return contas;
     }
