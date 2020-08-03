@@ -33,7 +33,7 @@ public class GerenciaConta {
     public String incluir(int codCliente, String placa, int codPatio, int diarias, int ano, int mes, boolean paga){
         
         Conta cont = new Conta(new Veiculo(placa), new Cliente(codCliente), new Patio(codPatio), diarias, ano, mes, codPatio, paga);
-        String mensagem = contaDAO.incluir(cont);
+        String mensagem = contaDAO.incluirDiarias(cont);
         if(mensagem.equals("ok")){
             return "ok";
         }else{
@@ -52,6 +52,20 @@ public class GerenciaConta {
             return mensagem;
         }
         
+    }
+    
+    public String incluirDiaria(int codigoConta, int diarias){
+        Conta c = new Conta();
+        c = buscarPorCodigo(codigoConta);
+        int quantidadeDeDiarias = c.getDiarias();
+        quantidadeDeDiarias += diarias;
+        c.setDiarias(quantidadeDeDiarias);
+        String mensagem = contaDAO.incluirDiarias(c);
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
     }
     
     public Conta buscarPorCodigo(int codigo) {

@@ -45,16 +45,6 @@
                   <Component id="jLabel10" max="32767" attributes="0"/>
                   <Component id="tfQuantDeDiarias" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfAno" min="-2" pref="84" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfMes" min="-2" pref="61" max="-2" attributes="0"/>
-              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -66,17 +56,9 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" pref="290" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="tfQuantDeDiarias" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfAno" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfMes" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="tfQuantDeDiarias" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="58" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -490,21 +472,7 @@
         <Property name="text" type="java.lang.String" value="QNTD de Di&#xe1;rias:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel11">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ano:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="tfQuantDeDiarias">
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfAno">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel12">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="M&#xea;s:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfMes">
     </Component>
   </SubComponents>
 </Form>

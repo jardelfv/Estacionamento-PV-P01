@@ -25,33 +25,29 @@ public class ContaDAO {
         conn = Conexao.getConexao();
     }
 
-    public String incluir(Conta cont) {
+    public String incluirDiarias(Conta cont) {
 
         String sql;
         PreparedStatement ps;
 
-        sql = "INSERT INTO tbl_conta(cod_cliente, placa_veiculo, cod_patio, diarias, ano, mes, paga) VALUES (?,?,?,?,?,?,?)";
-
+        sql = "UPDATE tbl_conta SET diarias = ?, paga = ? WHERE codigo = ?";
         try {
             ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, cont.getCliente().getCodigo());
-            ps.setString(2, cont.getVeiculo().getPlaca());
-            ps.setInt(3, cont.getPatio().getCodigo());
-            ps.setInt(4, cont.getDiarias());
-            ps.setInt(5, cont.getAno());
-            ps.setInt(6, cont.getMes());
-            ps.setBoolean(7, cont.getPaga());
             
-            ps.execute();
-            System.out.println("\n\nConta adicionada com sucesso!");
+            ps.setInt(1, cont.getDiarias());
+            ps.setBoolean(2, cont.getPaga());
+            ps.setInt(3, cont.getCodigo());
+            
+            ps.executeUpdate();
+            System.out.println("\n\nDiária incluída com sucesso!");
             ps.close();
             
             return "ok";
 
         } catch (Exception e) {
-            System.out.println("Erro na operação SQL de incluir: " + e.getMessage() + e.getClass());
-            String mensagem = "Erro na operação de incluir conta: "+e.getMessage();
+            System.out.println("Erro na operação SQL de incluir diária: " + e.getMessage() + e.getClass());
+            String mensagem = "Erro na operação de incluir diária: "+e.getMessage();
             
             return mensagem;
         }
@@ -88,6 +84,7 @@ public class ContaDAO {
             return mensagem;
         }
     }
+    
     
     public ArrayList<Conta> listar() {
         ArrayList<Conta> contas = new ArrayList<>();

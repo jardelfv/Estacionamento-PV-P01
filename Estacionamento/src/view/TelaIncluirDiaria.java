@@ -84,11 +84,7 @@ public class TelaIncluirDiaria extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         tfQuantDeDiarias = new javax.swing.JTextField();
-        tfAno = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        tfMes = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -332,10 +328,6 @@ public class TelaIncluirDiaria extends javax.swing.JFrame {
 
         jLabel10.setText("QNTD de Diárias:");
 
-        jLabel11.setText("Ano:");
-
-        jLabel12.setText("Mês:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -355,14 +347,6 @@ public class TelaIncluirDiaria extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tfQuantDeDiarias))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -372,15 +356,9 @@ public class TelaIncluirDiaria extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12))
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfQuantDeDiarias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tfQuantDeDiarias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -393,17 +371,19 @@ public class TelaIncluirDiaria extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if(tfCodigoConta.getText().length() > 0 
-                && tfPlaca.getText().length() > 0 
-                && tfCodigoPatio.getText().length() > 0){
-            int codCliente = Integer.parseInt(tfCodigoConta.getText()), codPatio = Integer.parseInt(tfCodigoPatio.getText());
+                && tfPlaca.getText().length() > 0){
+            int codCliente = Integer.parseInt(tfCodigoConta.getText());
             String placa = tfPlaca.getText();
             
-            String mensagem = gConta.cadastrarConta(codCliente, placa, codPatio);
+            int diarias = Integer.parseInt(tfQuantDeDiarias.getText());
+            int codigoConta = Integer.parseInt(tfCodigoConta.getText());
+            
+            String mensagem = gConta.incluirDiaria(codigoConta, diarias);
             if(mensagem.equals("ok")){
-                JOptionPane.showMessageDialog(this, "Conta cadastrada com sucesso");
+                JOptionPane.showMessageDialog(this, "Diária incluída com sucesso");
                 
             }else{
-                JOptionPane.showMessageDialog(this, "Não foi possível cadastrar: "+mensagem);
+                JOptionPane.showMessageDialog(this, "Não foi possível incluir essa diária: "+mensagem);
                 
             }
             
@@ -577,8 +557,6 @@ public class TelaIncluirDiaria extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbNomePatio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -593,10 +571,8 @@ public class TelaIncluirDiaria extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tblPesquisaConta;
-    private javax.swing.JTextField tfAno;
     private javax.swing.JTextField tfCodigoConta;
     private javax.swing.JTextField tfCodigoPatio;
-    private javax.swing.JTextField tfMes;
     private javax.swing.JTextField tfNomeCliente;
     private javax.swing.JTextField tfPesquisarContaPorCodigo;
     private javax.swing.JTextField tfPlaca;
