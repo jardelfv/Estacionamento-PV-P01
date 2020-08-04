@@ -42,6 +42,7 @@ public class TelaMain extends javax.swing.JFrame {
         menuConta = new javax.swing.JMenu();
         menuContaCadastrar = new javax.swing.JMenuItem();
         menuContaIncluirDiaria = new javax.swing.JMenuItem();
+        menuConsultarConta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +136,14 @@ public class TelaMain extends javax.swing.JFrame {
         });
         menuConta.add(menuContaIncluirDiaria);
 
+        menuConsultarConta.setText("Consultar Contas");
+        menuConsultarConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultarContaActionPerformed(evt);
+            }
+        });
+        menuConta.add(menuConsultarConta);
+
         jMenuBar1.add(menuConta);
 
         setJMenuBar(jMenuBar1);
@@ -197,6 +206,10 @@ public class TelaMain extends javax.swing.JFrame {
         new TelaIncluirDiaria().setVisible(true);
     }//GEN-LAST:event_menuContaIncluirDiariaActionPerformed
 
+    private void menuConsultarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarContaActionPerformed
+        new TelaConsultaConta().setVisible(true);
+    }//GEN-LAST:event_menuConsultarContaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -239,6 +252,7 @@ public class TelaMain extends javax.swing.JFrame {
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuItem menuClienteCadastrar;
     private javax.swing.JMenuItem menuClienteConsultar;
+    private javax.swing.JMenuItem menuConsultarConta;
     private javax.swing.JMenu menuConta;
     private javax.swing.JMenuItem menuContaCadastrar;
     private javax.swing.JMenuItem menuContaIncluirDiaria;
