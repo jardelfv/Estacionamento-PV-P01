@@ -68,6 +68,18 @@ public class GerenciaConta {
         }
     }
     
+    public String alterarConta(int codigoConta, int codigoCliente, int codigoVeiculo,int codigoPatio, String placa, int diarias, int mes, int ano){
+        
+        Conta cont = new Conta(new Veiculo(placa), new Cliente(codigoCliente), new Patio(codigoPatio), diarias, ano, mes, codigoConta, true);
+        String mensagem = contaDAO.alterarConta(cont);
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
+        
+    }
+    
     public Conta buscarPorCodigo(int codigo) {
         Conta c = contaDAO.buscarContaPorCodigo(codigo);
 

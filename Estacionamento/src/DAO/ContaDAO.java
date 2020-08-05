@@ -85,6 +85,34 @@ public class ContaDAO {
         }
     }
     
+    public String alterarConta(Conta cont) {
+
+        String sql;
+        PreparedStatement ps;
+
+        sql = "UPDATE tbl_conta SET diarias = ?, mes = ?, ano = ? WHERE codigo = ?";
+        try {
+            ps = conn.prepareStatement(sql);
+
+            
+            ps.setInt(1, cont.getDiarias());
+            ps.setInt(2, cont.getMes());
+            ps.setInt(3, cont.getAno());
+            ps.setInt(4, cont.getCodigo());
+            
+            ps.executeUpdate();
+            System.out.println("\n\nConta alterada com sucesso!");
+            ps.close();
+            
+            return "ok";
+
+        } catch (Exception e) {
+            System.out.println("Erro na operação SQL de alterar conta: " + e.getMessage() + e.getClass());
+            String mensagem = "Erro na operação de alterar conta: "+e.getMessage();
+            
+            return mensagem;
+        }
+    }
     
     public ArrayList<Conta> listar() {
         ArrayList<Conta> contas = new ArrayList<>();

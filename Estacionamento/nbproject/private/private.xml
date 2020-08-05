@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/jardel/Projetos_Git/IFTM/PV/Estacionamento-PV-P01/Estacionamento/src/view/TelaIncluirDiaria.java</file>
+            <file>file:/home/jardel/Projetos_Git/IFTM/PV/Estacionamento-PV-P01/Estacionamento/src/model/Conta.java</file>
+            <file>file:/home/jardel/Projetos_Git/IFTM/PV/Estacionamento-PV-P01/Estacionamento/src/controller/GerenciaConta.java</file>
+            <file>file:/home/jardel/Projetos_Git/IFTM/PV/Estacionamento-PV-P01/Estacionamento/src/DAO/ContaDAO.java</file>
+            <file>file:/home/jardel/Projetos_Git/IFTM/PV/Estacionamento-PV-P01/Estacionamento/src/view/TelaConsultaConta.java</file>
+        </group>
     </open-files>
 </project-private>

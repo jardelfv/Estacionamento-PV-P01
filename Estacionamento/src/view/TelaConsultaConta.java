@@ -43,7 +43,8 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         initComponents();
         manipulaComponentes();
         patioComboBoxModel = new PatioComboboxModel();
-        
+        contas = null;
+        contas = gConta.listar();
     }
 
     /**
@@ -80,6 +81,12 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         tfAno = new javax.swing.JTextField();
         tfPago = new javax.swing.JLabel();
         tfQuantDeDiarias = new javax.swing.JTextField();
+        tfCodigoVeiculo = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        tfCodigoCliente = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tfCodigoPatio = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -177,6 +184,12 @@ public class TelaConsultaConta extends javax.swing.JFrame {
 
         tfPago.setText("...");
 
+        jLabel7.setText("Código veículo:");
+
+        jLabel9.setText("Código cliente:");
+
+        jLabel11.setText("Código pátio");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,57 +222,82 @@ public class TelaConsultaConta extends javax.swing.JFrame {
                                     .addComponent(tfQuantDeDiarias))
                                 .addGap(45, 45, 45)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(tfPago, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3))
-                                        .addGap(18, 18, 18)
+                                            .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9))
+                                        .addGap(40, 40, 40)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel13)
-                                                .addGap(85, 85, 85)
-                                                .addComponent(jLabel4))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
+                                            .addComponent(tfCodigoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7))
+                                        .addGap(31, 31, 31)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel6)
-                                    .addComponent(tfPago, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jLabel11)
+                                            .addComponent(tfCodigoPatio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPesquisaConta)
-                    .addComponent(tfPesquisarContaPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAtualizarContas))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPesquisaConta)
+                            .addComponent(tfPesquisarContaPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAtualizarContas))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfCodigoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCodigoPatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfCodigoConta, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel13)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfCodigoConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel6))
@@ -284,15 +322,20 @@ public class TelaConsultaConta extends javax.swing.JFrame {
             int codCliente = Integer.parseInt(tfCodigoConta.getText());
             String placa = tfPlaca.getText();
             
-            int diarias = Integer.parseInt(tfQuantDeDiarias.getText());
             int codigoConta = Integer.parseInt(tfCodigoConta.getText());
+            int codigoCliente = Integer.parseInt(tfCodigoCliente.getText());
+            int codigoVeiculo = Integer.parseInt(tfCodigoVeiculo.getText());
+            int codigoPatio = Integer.parseInt(tfCodigoPatio.getText());
+            int diarias = Integer.parseInt(tfQuantDeDiarias.getText());
+            int mes = Integer.parseInt(tfMes.getText());
+            int ano = Integer.parseInt(tfAno.getText());
             
-            String mensagem = gConta.incluirDiaria(codigoConta, diarias);
+            String mensagem = gConta.alterarConta(codigoConta, codigoCliente, codigoVeiculo, codigoPatio, placa, diarias, mes, ano);
             if(mensagem.equals("ok")){
-                JOptionPane.showMessageDialog(this, "Diária incluída com sucesso");
+                JOptionPane.showMessageDialog(this, "Conta alterada com sucesso");
                 
             }else{
-                JOptionPane.showMessageDialog(this, "Não foi possível incluir essa diária: "+mensagem);
+                JOptionPane.showMessageDialog(this, "Não foi possível alterar essa conta: "+mensagem);
                 
             }
             
@@ -349,14 +392,17 @@ public class TelaConsultaConta extends javax.swing.JFrame {
 
     private void tblPesquisaContaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesquisaContaMouseClicked
         int index = tblPesquisaConta.getSelectedRow();
-        contas = null;
-        contas = gConta.listar();
+        //contas = null;
+        //contas = gConta.listar();
 
         if (filtro.equals("geral")) {
             if (index >= 0 && index < contas.size()) {
                 Conta c = contas.get(index);
 
                 tfCodigoConta.setText(String.valueOf(c.getCodigo()));
+                tfCodigoCliente.setText(String.valueOf(c.getCliente().getCodigo()));
+                tfCodigoVeiculo.setText(String.valueOf(c.getVeiculo().getCodigo()));
+                tfCodigoPatio.setText(String.valueOf(c.getPatio().getCodigo()));
                 tfNomeCliente.setText(c.getCliente().getNome());
                 tfCodigoConta.setText(String.valueOf(c.getCliente().getCodigo()));
                 tfPlaca.setText(c.getVeiculo().getPlaca());
@@ -392,7 +438,10 @@ public class TelaConsultaConta extends javax.swing.JFrame {
     
     public void manipulaComponentes() {
         tfCodigoConta.setEditable(false);
+        tfCodigoCliente.setEditable(false);
         tfNomeCliente.setEditable(false);
+        tfCodigoVeiculo.setEditable(false);
+        tfCodigoPatio.setEditable(false);
         tfPlaca.setEditable(false);
     }
     
@@ -442,18 +491,24 @@ public class TelaConsultaConta extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPesquisaConta;
     private javax.swing.JTextField tfAno;
+    private javax.swing.JTextField tfCodigoCliente;
     private javax.swing.JTextField tfCodigoConta;
+    private javax.swing.JTextField tfCodigoPatio;
+    private javax.swing.JTextField tfCodigoVeiculo;
     private javax.swing.JTextField tfMes;
     private javax.swing.JTextField tfNomeCliente;
     private javax.swing.JLabel tfPago;
