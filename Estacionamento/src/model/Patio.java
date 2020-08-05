@@ -13,7 +13,8 @@ public class Patio {
     private int capacidadeDeVeiculos,
                 lotacao,
                 codigo;
-    private float valorDaDiaria;
+    private float valorDaDiariaCarro,
+                  valorDaDiariaCaminhao;
     private String nome,
                    logradouro,
                    numero,
@@ -22,9 +23,10 @@ public class Patio {
                    estado,
                    cep;
     // sem a chave primária codigo
-    public Patio(int capacidadeDeVeiculos, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
+    public Patio(int capacidadeDeVeiculos, float valorDaDiariaCarro, float valorDaDiariaCaminhao, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
         this.capacidadeDeVeiculos = capacidadeDeVeiculos;
-        this.valorDaDiaria = valorDaDiaria;
+        this.valorDaDiariaCarro = valorDaDiariaCarro;
+        this.valorDaDiariaCarro = valorDaDiariaCaminhao;
         this.nome = nome;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -37,7 +39,7 @@ public class Patio {
     // com a chave primária codigo
     public Patio(int codigo, int capacidadeDeVeiculos, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
         this.capacidadeDeVeiculos = capacidadeDeVeiculos;
-        this.valorDaDiaria = valorDaDiaria;
+        this.valorDaDiariaCarro = valorDaDiaria;
         this.nome = nome;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -81,11 +83,11 @@ public class Patio {
     }
 
     public float getValorDaDiaria() {
-        return valorDaDiaria;
+        return valorDaDiariaCarro;
     }
 
     public void setValorDaDiaria(float valorDaDiaria) {
-        this.valorDaDiaria = valorDaDiaria;
+        this.valorDaDiariaCarro = valorDaDiaria;
     }
 
     public String getNome() {

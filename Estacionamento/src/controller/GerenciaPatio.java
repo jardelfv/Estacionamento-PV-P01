@@ -18,9 +18,9 @@ public class GerenciaPatio {
     ArrayList<Patio> patios = new ArrayList<>();
     PatioDAO patioDao = new PatioDAO();
     
-    public String incluir(int capacidadeDeVeiculos, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep){
+    public String incluir(int capacidadeDeVeiculos, float valorDaDiariaCarro, float valorDaDiariaCaminhao, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep){
         
-        Patio p = new Patio(capacidadeDeVeiculos, valorDaDiaria, nome, logradouro, numero, bairro, municipio, estado, cep);
+        Patio p = new Patio(capacidadeDeVeiculos, valorDaDiariaCarro, valorDaDiariaCaminhao, nome, logradouro, numero, bairro, municipio, estado, cep);
         String mensagem = patioDao.incluir(p);
         if(mensagem.equals("ok")){
             return "ok";
