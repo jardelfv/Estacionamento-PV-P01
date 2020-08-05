@@ -80,6 +80,18 @@ public class GerenciaConta {
         
     }
     
+    public String excluirConta(int codigoConta){
+        Conta c = new Conta();
+        c = buscarPorCodigo(codigoConta);
+        
+        String mensagem = contaDAO.excluirConta(c);
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
+    }
+    
     public Conta buscarPorCodigo(int codigo) {
         Conta c = contaDAO.buscarContaPorCodigo(codigo);
 

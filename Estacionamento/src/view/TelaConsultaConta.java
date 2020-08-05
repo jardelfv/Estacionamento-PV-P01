@@ -43,8 +43,8 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         initComponents();
         manipulaComponentes();
         patioComboBoxModel = new PatioComboboxModel();
-        contas = null;
-        contas = gConta.listar();
+        //contas = null;
+        //contas = gConta.listar();
     }
 
     /**
@@ -87,6 +87,7 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         tfCodigoPatio = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -121,6 +122,11 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("QNTD de Diárias:");
 
@@ -190,6 +196,13 @@ public class TelaConsultaConta extends javax.swing.JFrame {
 
         jLabel11.setText("Código pátio");
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,22 +249,24 @@ public class TelaConsultaConta extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel11)
                                             .addComponent(tfCodigoPatio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(45, 45, 45)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnExcluir)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(tfNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel13))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(45, 45, 45)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -308,7 +323,8 @@ public class TelaConsultaConta extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnExcluir))
                 .addContainerGap())
         );
 
@@ -395,25 +411,48 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         //contas = null;
         //contas = gConta.listar();
 
-        if (filtro.equals("geral")) {
-            if (index >= 0 && index < contas.size()) {
-                Conta c = contas.get(index);
+        if (index >= 0 && index < contas.size()) {
+            Conta c = contas.get(index);
 
-                tfCodigoConta.setText(String.valueOf(c.getCodigo()));
-                tfCodigoCliente.setText(String.valueOf(c.getCliente().getCodigo()));
-                tfCodigoVeiculo.setText(String.valueOf(c.getVeiculo().getCodigo()));
-                tfCodigoPatio.setText(String.valueOf(c.getPatio().getCodigo()));
-                tfNomeCliente.setText(c.getCliente().getNome());
-                tfCodigoConta.setText(String.valueOf(c.getCliente().getCodigo()));
-                tfPlaca.setText(c.getVeiculo().getPlaca());
-                tfMes.setText(String.valueOf(c.getMes()));
-                tfAno.setText(String.valueOf(c.getAno()));
-                tfQuantDeDiarias.setText(String.valueOf(c.getDiarias()));
-                String msg = c.getPaga() == false ? "Não Paga":"Paga";
-                tfPago.setText(msg);
-            }
+            tfCodigoConta.setText(String.valueOf(c.getCodigo()));
+            tfCodigoCliente.setText(String.valueOf(c.getCliente().getCodigo()));
+            tfCodigoVeiculo.setText(String.valueOf(c.getVeiculo().getCodigo()));
+            tfCodigoPatio.setText(String.valueOf(c.getPatio().getCodigo()));
+            tfNomeCliente.setText(c.getCliente().getNome());
+            tfCodigoConta.setText(String.valueOf(c.getCliente().getCodigo()));
+            tfPlaca.setText(c.getVeiculo().getPlaca());
+            tfMes.setText(String.valueOf(c.getMes()));
+            tfAno.setText(String.valueOf(c.getAno()));
+            tfQuantDeDiarias.setText(String.valueOf(c.getDiarias()));
+            String msg = c.getPaga() == false ? "Não Paga" : "Paga";
+            tfPago.setText(msg);
         }
+
     }//GEN-LAST:event_tblPesquisaContaMouseClicked
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(tfCodigoConta.getText().length() > 0){
+            int codigoConta = Integer.parseInt(tfCodigoConta.getText());
+            
+            String mensagem = gConta.excluirConta(codigoConta);
+            if(mensagem.equals("ok")){
+                JOptionPane.showMessageDialog(this, "Conta excluída com sucesso");
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "Não foi possível excluir essa conta: "+mensagem);
+                
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Atenção, está faltando preecher algum campo!");
+        }
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpaTela();
+        
+    }//GEN-LAST:event_btnCancelarActionPerformed
     public void carregarTabelaConta(){
         //ArrayList<Conta> arrayClientes = new ArrayList<>();
         contas = null;
@@ -435,7 +474,18 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         tblPesquisaConta.setModel(modelo);
     }
     
-    
+    public void limpaTela() {
+        tfCodigoConta.setText("");
+        tfCodigoCliente.setText("");
+        tfCodigoVeiculo.setText("");
+        tfCodigoPatio.setText("");
+        tfNomeCliente.setText("");
+        tfCodigoConta.setText("");
+        tfPlaca.setText("");
+        tfMes.setText("");
+        tfAno.setText("");
+        tfQuantDeDiarias.setText("");
+    }
     public void manipulaComponentes() {
         tfCodigoConta.setEditable(false);
         tfCodigoCliente.setEditable(false);
@@ -486,6 +536,7 @@ public class TelaConsultaConta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizarContas;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisaConta;
     private javax.swing.JButton btnSalvar;
     private javax.swing.ButtonGroup buttonGroup1;

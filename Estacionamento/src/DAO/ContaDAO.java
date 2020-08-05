@@ -103,13 +103,41 @@ public class ContaDAO {
             ps.executeUpdate();
             System.out.println("\n\nConta alterada com sucesso!");
             ps.close();
-            
+            cont = null;
+            System.gc();
             return "ok";
 
         } catch (Exception e) {
             System.out.println("Erro na operação SQL de alterar conta: " + e.getMessage() + e.getClass());
             String mensagem = "Erro na operação de alterar conta: "+e.getMessage();
             
+            return mensagem;
+        }
+    }
+    
+    public String excluirConta(Conta c) {
+        String sql;
+        PreparedStatement ps = null;
+
+        sql = "delete from tbl_conta where codigo = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, c.getCodigo());
+
+            ps.execute();
+            System.out.printf("Conta: %s, Cliente: %s ", c.getCodigo(), c.getCliente().getNome());
+            System.out.println("\nOK, excluído com sucesso!");
+            ps.close();
+            c = null;
+            System.gc();
+            return "ok";
+            
+        } catch (Exception e) {
+            System.out.println("Erro na operação de deletar conta: " + e.getMessage());
+            String mensagem = "Erro na operação de deletar conta: " + e.getMessage();
+            c = null;
+            System.gc();
             return mensagem;
         }
     }
@@ -143,11 +171,10 @@ public class ContaDAO {
                 cont.setPatio(p);
                 
                 cont.setDiarias(rs.getInt("diarias"));
-                System.out.println("passou diarias");
                 cont.setAno(rs.getInt("ano"));
                 cont.setMes(rs.getInt("mes"));
                 cont.setPaga(rs.getBoolean("paga"));
-
+                System.out.println("Preenchendo lista com dados das contas");
                 contas.add(cont);
 
             }
