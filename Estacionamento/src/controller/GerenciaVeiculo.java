@@ -7,7 +7,10 @@ package controller;
 
 import DAO.VeiculoDAO;
 import java.util.ArrayList;
+import model.Caminhao;
+import model.Carro;
 import model.Cliente;
+import model.Motocicleta;
 import model.Veiculo;
 
 /**
@@ -21,10 +24,34 @@ public class GerenciaVeiculo {
     public GerenciaVeiculo() {
     }
     
-    public String incluir(int anoModelo, int anoFabricacao, String marca, String modelo, String chassi, String placa){
+    public String incluirCarro(int anoModelo, int anoFabricacao, String marca, String modelo, String chassi, String placa, int numeroPortas, int qtdPassageiros){
         
-        Veiculo v = new Veiculo(anoModelo, anoFabricacao, marca, modelo, chassi, placa);
-        String mensagem = veicDAO.incluir(v);
+        Carro c = new Carro(numeroPortas, qtdPassageiros, anoModelo, anoFabricacao, marca, modelo, chassi, placa);
+        String mensagem = veicDAO.incluirCarro(c);
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
+        
+    }
+    
+    public String incluirCaminhao(int anoModelo, int anoFabricacao, String marca, String modelo, String chassi, String placa, int numeroDeEixos, float capacidadeDeCarga){
+        
+        Caminhao c = new Caminhao(numeroDeEixos, capacidadeDeCarga, anoModelo, anoFabricacao, marca, modelo, chassi, placa);
+        String mensagem = veicDAO.incluirCaminhao(c);
+        if(mensagem.equals("ok")){
+            return "ok";
+        }else{
+            return mensagem;
+        }
+        
+    }
+    
+    public String incluirMotocicleta(int anoModelo, int anoFabricacao, String marca, String modelo, String chassi, String placa, int cilindradas, int qtdRodas){
+        
+        Motocicleta m = new Motocicleta(cilindradas, qtdRodas, anoModelo, anoFabricacao, marca, modelo, chassi, placa);
+        String mensagem = veicDAO.incluirMotocicleta(m);
         if(mensagem.equals("ok")){
             return "ok";
         }else{

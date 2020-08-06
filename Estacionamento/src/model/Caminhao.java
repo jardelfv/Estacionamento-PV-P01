@@ -10,13 +10,17 @@ package model;
  * @author Jardel
  */
 public class Caminhao extends Veiculo{
-    private int numeroDeEixos,
-                capacidadeDeCarga;
+    private int numeroDeEixos;
+    private float capacidadeDeCarga;
 
-    public Caminhao(int numeroDeEixos, int capacidadeDeCarga, int anoModelo, int anoFabricacao, String marca, String modelo, String chassi, String placa) {
+    public Caminhao(int numeroDeEixos, float capacidadeDeCarga, int anoModelo, int anoFabricacao, String marca, String modelo, String chassi, String placa) {
         super(anoModelo, anoFabricacao, marca, modelo, chassi, placa);
         this.numeroDeEixos = numeroDeEixos;
         this.capacidadeDeCarga = capacidadeDeCarga;
+    }
+
+    public Caminhao() {
+        
     }
 
     public int getNumeroDeEixos() {
@@ -27,11 +31,11 @@ public class Caminhao extends Veiculo{
         this.numeroDeEixos = numeroDeEixos;
     }
 
-    public int getCapacidadeDeCarga() {
+    public float getCapacidadeDeCarga() {
         return capacidadeDeCarga;
     }
 
-    public void setCapacidadeDeCarga(int capacidadeDeCarga) {
+    public void setCapacidadeDeCarga(float capacidadeDeCarga) {
         this.capacidadeDeCarga = capacidadeDeCarga;
     }
     

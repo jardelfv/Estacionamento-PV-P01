@@ -19,6 +19,10 @@ public class Motocicleta extends Veiculo{
         this.qtdRodas = qtdRodas;
     }
 
+    public Motocicleta() {
+    }
+    
+
     public int getCilindradas() {
         return cilindradas;
     }

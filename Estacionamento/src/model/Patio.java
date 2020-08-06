@@ -26,7 +26,7 @@ public class Patio {
     public Patio(int capacidadeDeVeiculos, float valorDaDiariaCarro, float valorDaDiariaCaminhao, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
         this.capacidadeDeVeiculos = capacidadeDeVeiculos;
         this.valorDaDiariaCarro = valorDaDiariaCarro;
-        this.valorDaDiariaCarro = valorDaDiariaCaminhao;
+        this.valorDaDiariaCaminhao = valorDaDiariaCaminhao;
         this.nome = nome;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -37,9 +37,10 @@ public class Patio {
         
     }
     // com a chave primária codigo
-    public Patio(int codigo, int capacidadeDeVeiculos, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
+    public Patio(int codigo, int capacidadeDeVeiculos, float valorDaDiariaCarro, float valorDaDiariaCaminhao, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep) {
         this.capacidadeDeVeiculos = capacidadeDeVeiculos;
-        this.valorDaDiariaCarro = valorDaDiaria;
+        this.valorDaDiariaCarro = valorDaDiariaCarro;
+        this.valorDaDiariaCaminhao = valorDaDiariaCaminhao;
         this.nome = nome;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -82,13 +83,22 @@ public class Patio {
         this.codigo = codigo;
     }
 
-    public float getValorDaDiaria() {
+    public float getValorDaDiariaCarro() {
         return valorDaDiariaCarro;
     }
 
-    public void setValorDaDiaria(float valorDaDiaria) {
-        this.valorDaDiariaCarro = valorDaDiaria;
+    public void setValorDaDiariaCarro(float valorDaDiariaCarro) {
+        this.valorDaDiariaCarro = valorDaDiariaCarro;
     }
+
+    public float getValorDaDiariaCaminhao() {
+        return valorDaDiariaCaminhao;
+    }
+
+    public void setValorDaDiariaCaminhao(float valorDaDiariaCaminhao) {
+        this.valorDaDiariaCaminhao = valorDaDiariaCaminhao;
+    }
+    
 
     public String getNome() {
         return nome;

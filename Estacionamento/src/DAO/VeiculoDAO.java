@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import model.Carro;
+import model.Caminhao;
+import model.Motocicleta;
 import model.Veiculo;
 
 /**
@@ -28,57 +31,173 @@ public class VeiculoDAO {
         conn = Conexao.getConexao();
     }
 
-    public String incluir(Veiculo car) {
+    public String incluirCarro(Carro c) {
 
         String sql;
         PreparedStatement ps = null;
 
-        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi) VALUES (?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,numeroportas,qtdpassageiros) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             ps = conn.prepareStatement(sql);
 
-            ps.setString(1, car.getMarca());
-            ps.setString(2, car.getModelo());
-            ps.setInt(3, car.getAnoFabricacao());
-            ps.setInt(4, car.getAnoModelo());
-            ps.setString(5, car.getPlaca());
-            ps.setString(6, car.getChassi());
-            
+            ps.setString(1, c.getMarca());
+            ps.setString(2, c.getModelo());
+            ps.setInt(3, c.getAnoFabricacao());
+            ps.setInt(4, c.getAnoModelo());
+            ps.setString(5, c.getPlaca());
+            ps.setString(6, c.getChassi());
+            ps.setInt(7, c.getNumeroPortas());
+            ps.setInt(8, c.getQtdPassageiros());
 
             ps.executeUpdate();
             ps.close();
             return "ok";
 
         } catch (Exception e) {
-            System.out.println("Erro na operação de incluir veículo: " + e.getMessage());
-            String mensagem = "Erro na operação de incluir veículo: " + e.getMessage();
+            System.out.println("Erro na operação de incluir carro: " + e.getMessage());
+            String mensagem = "Erro na operação de incluir carro: " + e.getMessage();
+            return mensagem;
+        }
+
+    }
+    
+    public String incluirCaminhao(Caminhao c) {
+
+        String sql;
+        PreparedStatement ps = null;
+        
+        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,numerodeeixos,capacidadedecarga) VALUES (?,?,?,?,?,?,?,?)";
+
+        try {
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, c.getMarca());
+            ps.setString(2, c.getModelo());
+            ps.setInt(3, c.getAnoFabricacao());
+            ps.setInt(4, c.getAnoModelo());
+            ps.setString(5, c.getPlaca());
+            ps.setString(6, c.getChassi());
+            ps.setInt(7, c.getNumeroDeEixos());
+            ps.setFloat(8, c.getCapacidadeDeCarga());
+
+            ps.executeUpdate();
+            ps.close();
+            return "ok";
+
+        } catch (Exception e) {
+            System.out.println("Erro na operação de incluir caminhão: " + e.getMessage());
+            String mensagem = "Erro na operação de incluir caminhão: " + e.getMessage();
+            return mensagem;
+        }
+
+    }
+    
+    public String incluirMotocicleta(Motocicleta m) {
+
+        String sql;
+        PreparedStatement ps = null;
+
+ 
+        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,cilindradas,qtdrodas) VALUES (?,?,?,?,?,?,?,?)";
+
+        try {
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, m.getMarca());
+            ps.setString(2, m.getModelo());
+            ps.setInt(3, m.getAnoFabricacao());
+            ps.setInt(4, m.getAnoModelo());
+            ps.setString(5, m.getPlaca());
+            ps.setString(6, m.getChassi());
+            ps.setInt(7, m.getCilindradas());
+            ps.setInt(8, m.getQtdRodas());
+
+            ps.executeUpdate();
+            ps.close();
+            return "ok";
+
+        } catch (Exception e) {
+            System.out.println("Erro na operação de incluir motocicleta: " + e.getMessage());
+            String mensagem = "Erro na operação de incluir motocicleta: " + e.getMessage();
             return mensagem;
         }
 
     }
 
-    public String editar(Veiculo car) {
+    public String editar(Veiculo veic) {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "UPDATE tbl_veiculo SET marca = ?, modelo = ?, ano_fabricacao = ?, ano_modelo = ? WHERE placa = ?";
+        
 
         try {
-            ps = conn.prepareStatement(sql);
+            
+            
+            if(veic instanceof Carro){
+                Carro c =(Carro) veic;
+                
+                sql = "UPDATE tbl_veiculo SET marca = ?, modelo = ?, ano_fabricacao = ?, ano_modelo = ?, numeroportas = ?, qtdpassageiros = ? WHERE placa = ?";
+                ps = conn.prepareStatement(sql);
+                
+                ps.setString(1, c.getMarca());
+                ps.setString(2, c.getModelo());
+                ps.setInt(3, c.getAnoFabricacao());
+                ps.setInt(4, c.getAnoModelo());
+                ps.setString(5, c.getPlaca());
+                ps.setString(6, c.getChassi());
+                ps.setInt(7, c.getNumeroPortas());
+                ps.setInt(8, c.getQtdPassageiros());
 
-            ps.setString(1, car.getMarca());
-            ps.setString(2, car.getModelo());
-            ps.setInt(3, car.getAnoFabricacao());
-            ps.setInt(4, car.getAnoModelo());
-            //ps.setInt(5, car.getCodigo());
-            ps.setString(5, car.getPlaca());
+                int resultado = ps.executeUpdate();
+                System.out.println("resultado desta query: "+resultado);
+                System.out.println("\nOK, alterado com sucesso!");
+                ps.close();
+                return "ok";
+            
+            }else if(veic instanceof Caminhao){
+                Caminhao cam = (Caminhao) veic;
+                
+                sql = "UPDATE tbl_veiculo SET marca = ?, modelo = ?, ano_fabricacao = ?, ano_modelo = ?, numeroportas = ?, qtdpassageiros = ?, numerodeeixos = ?,capacidadedecarga = ? WHERE placa = ?";
+                ps = conn.prepareStatement(sql);
+                
+                ps.setString(1, cam.getMarca());
+                ps.setString(2, cam.getModelo());
+                ps.setInt(3, cam.getAnoFabricacao());
+                ps.setInt(4, cam.getAnoModelo());
+                ps.setString(5, cam.getPlaca());
+                ps.setString(6, cam.getChassi());
+                ps.setInt(7, cam.getNumeroDeEixos());
+                ps.setFloat(8, cam.getCapacidadeDeCarga());
 
-            int resultado = ps.executeUpdate();
-            System.out.println("resultado desta query: "+resultado);
-            System.out.println("\nOK, alterado com sucesso!");
-            ps.close();
-            return "ok";
+                int resultado = ps.executeUpdate();
+                System.out.println("resultado desta query: "+resultado);
+                System.out.println("\nOK, alterado com sucesso!");
+                
+                return "ok";
+            }else{
+                Motocicleta m = (Motocicleta) veic;
+                
+                sql = "UPDATE tbl_veiculo SET marca = ?, modelo = ?, ano_fabricacao = ?, ano_modelo = ?, numeroportas = ?, qtdpassageiros = ?, cilindradas = ?, qtdrodas = ? WHERE placa = ?";
+                ps = conn.prepareStatement(sql);
+
+                ps.setString(1, m.getMarca());
+                ps.setString(2, m.getModelo());
+                ps.setInt(3, m.getAnoFabricacao());
+                ps.setInt(4, m.getAnoModelo());
+                ps.setString(5, m.getPlaca());
+                ps.setString(6, m.getChassi());
+                ps.setInt(7, m.getCilindradas());
+                ps.setInt(8, m.getQtdRodas());
+
+                int resultado = ps.executeUpdate();
+                System.out.println("resultado desta query: "+resultado);
+                System.out.println("\nOK, alterado com sucesso!");
+                
+                return "ok";
+            }
+            
+            
             
         } catch (Exception e) {
             System.out.println("Erro na operação de editar veículo: " + e.getMessage());
@@ -117,30 +236,82 @@ public class VeiculoDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT codigo, marca, modelo, ano_fabricacao, ano_modelo, chassi, placa\n"
+        String sql = "SELECT codigo, marca, modelo, ano_fabricacao, ano_modelo, chassi, placa,numeroportas,qtdpassageiros,numerodeeixos,capacidadedecarga,cilindradas,qtdrodas,tipo_veiculo\n"
                 + "FROM tbl_veiculo;";
 
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {
-
-                Veiculo car = new Veiculo();
-
-                car.setCodigo(rs.getInt("codigo"));
-
-                car.setMarca(rs.getString("marca"));
-                car.setModelo(rs.getString("modelo"));
-                car.setAnoFabricacao(rs.getInt("ano_fabricacao"));
-                car.setAnoModelo(rs.getInt("ano_modelo"));
-                car.setPlaca(rs.getString("placa"));
-                car.setChassi(rs.getString("chassi"));
-
-                carros.add(car);
-
+            
+            if (rs.getString("tipo_veiculo").equals("carro")) {
+                
+                while (rs.next()) {
+                    
+                    Carro c = new Carro();
+                    
+                    c.setCodigo(rs.getInt("codigo"));
+                    
+                    c.setMarca(rs.getString("marca"));
+                    c.setModelo(rs.getString("modelo"));
+                    c.setAnoFabricacao(rs.getInt("ano_fabricacao"));
+                    c.setAnoModelo(rs.getInt("ano_modelo"));
+                    c.setPlaca(rs.getString("placa"));
+                    c.setChassi(rs.getString("chassi"));
+                    c.setNumeroPortas(rs.getInt("numeroportas"));
+                    c.setQtdPassageiros(rs.getInt("qtdpassageiros"));
+                    
+                    carros.add(c);
+                    
+                }
+                rs.close();
+                ps.close();
+                
+            } else if (rs.getString("tipo_veiculo").equals("caminhao")) {
+                
+                while (rs.next()) {
+                    
+                    Caminhao c = new Caminhao();
+                    
+                    c.setCodigo(rs.getInt("codigo"));
+                    
+                    c.setMarca(rs.getString("marca"));
+                    c.setModelo(rs.getString("modelo"));
+                    c.setAnoFabricacao(rs.getInt("ano_fabricacao"));
+                    c.setAnoModelo(rs.getInt("ano_modelo"));
+                    c.setPlaca(rs.getString("placa"));
+                    c.setChassi(rs.getString("chassi"));
+                    c.setNumeroDeEixos(rs.getInt("numerodeeixos"));
+                    c.setCapacidadeDeCarga(rs.getFloat("capacidadedecarga"));
+                    
+                    carros.add(c);
+                    
+                }
+                rs.close();
+                ps.close();
+            } else {
+                
+                while (rs.next()) {
+                    
+                    Motocicleta m = new Motocicleta();
+                    
+                    m.setCodigo(rs.getInt("codigo"));
+                    
+                    m.setMarca(rs.getString("marca"));
+                    m.setModelo(rs.getString("modelo"));
+                    m.setAnoFabricacao(rs.getInt("ano_fabricacao"));
+                    m.setAnoModelo(rs.getInt("ano_modelo"));
+                    m.setPlaca(rs.getString("placa"));
+                    m.setChassi(rs.getString("chassi"));
+                    m.setCilindradas(rs.getInt("cilindradas"));
+                    m.setQtdRodas(rs.getInt("qtdrodas"));
+                    
+                    carros.add(m);
+                    
+                }
+                rs.close();
+                ps.close();
             }
-            rs.close();
-            ps.close();
+            
 
         } catch (Exception e) {
             System.err.println("Erro na operação de listar veículos: " + e.getMessage());

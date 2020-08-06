@@ -68,11 +68,13 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         tfLotacao = new javax.swing.JTextField();
-        tfValorDaDiaria = new javax.swing.JTextField();
+        tfValorDaDiariaCarro = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         tfCodigo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        tfValorDaDiariaCaminhao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -181,9 +183,11 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Diária R$:");
+        jLabel11.setText("Diária Carro R$:");
 
         jLabel12.setText("Lotação:");
+
+        tfLotacao.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +204,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         });
 
         jLabel13.setText("CÓDIGO:");
+
+        jLabel14.setText("Diária Caminhão:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,51 +229,63 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfLogradouro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnPesquisa)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnAtualizar))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9)
-                            .addComponent(tfCapacidadeDeVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfMunicipio, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel11)
-                            .addComponent(tfValorDaDiaria))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tfEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(tfLotacao, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel9)
+                                .addComponent(tfCapacidadeDeVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfMunicipio, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel11)
+                                .addComponent(tfValorDaDiariaCarro))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(79, 79, 79)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(tfEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(32, 32, 32)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfValorDaDiariaCaminhao)))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfLogradouro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnPesquisa)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(btnAtualizar)))
+                            .addGap(65, 65, 65))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel13)
+                                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(367, 367, 367))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfLotacao, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12)))))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -284,11 +302,17 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfLotacao, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -315,12 +339,12 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfCapacidadeDeVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfLotacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfValorDaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfValorDaDiariaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfValorDaDiariaCaminhao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -342,7 +366,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         filtro = "pesquisa";
 
         if (p != null) {
-            Object colunas[] = {"Código", "Nome", "Logradouro", "Número", "Bairro", "Município", "Estado", "CEP", "Cap. Veículos", "Diária R$", "Lotação"};
+            Object colunas[] = {"Código", "Nome", "Logradouro", "Número", "Bairro", "Município", "Estado", "CEP", "Cap. Veículos", "Diária Carro R$", "Diária Caminhão R$","Lotação"};
             DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 
             Object linhas[] = new Object[]{
@@ -355,7 +379,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 p.getEstado(),
                 p.getCep(),
                 p.getCapacidadeDeVeiculos(),
-                p.getValorDaDiaria(),
+                p.getValorDaDiariaCarro(),
+                p.getValorDaDiariaCaminhao(),
                 p.getLotacao()
             };
             modelo.addRow(linhas);
@@ -368,7 +393,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
             tfBairro.setText(p.getBairro());
             tfEstado.setText(p.getEstado());
             tfCep.setText(p.getCep());
-            tfValorDaDiaria.setText(String.valueOf(p.getValorDaDiaria()));
+            tfValorDaDiariaCarro.setText(String.valueOf(p.getValorDaDiariaCarro()));
             tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
             tfLotacao.setText(String.valueOf(p.getLotacao()));
             tfCodigo.setText(String.valueOf(p.getCodigo()));
@@ -388,10 +413,12 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 municipio = tfMunicipio.getText(),
                 estado = tfEstado.getText(),
                 cep = tfCep.getText();
-        float valorDaDiaria = Float.parseFloat(tfValorDaDiaria.getText());
-        int capacidadeDeVeiculos = Integer.parseInt(tfCapacidadeDeVeiculos.getText());
+        float valorDaDiariaCarro = Float.parseFloat(tfValorDaDiariaCarro.getText()),
+              valorDaDiariaCaminhao = Float.parseFloat(tfValorDaDiariaCarro.getText());
+        int capacidadeDeVeiculos = Integer.parseInt(tfCapacidadeDeVeiculos.getText()),
+            codigo = Integer.parseInt(tfCodigo.getText());
 
-        String mensagem = gp.editar(Integer.parseInt(tfCodigo.getText()), capacidadeDeVeiculos, valorDaDiaria, nome, logradouro, numero, bairro, municipio, estado, cep);
+        String mensagem = gp.editar(codigo, capacidadeDeVeiculos, valorDaDiariaCarro, nome, logradouro, numero, bairro, municipio, estado, cep);
 
         if (mensagem.equals("ok")) {
             carregarTabela();
@@ -410,8 +437,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
 
     private void tblPesquisaPatioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesquisaPatioMouseClicked
         int index = tblPesquisaPatio.getSelectedRow();
-        arrayPatios = null;
-        arrayPatios = gp.listar();
+        //arrayPatios = null;
+        //arrayPatios = gp.listar();
         
         if (filtro.equals("geral")) {
             if (index >= 0 && index < arrayPatios.size()) {
@@ -424,7 +451,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 tfBairro.setText(p.getBairro());
                 tfEstado.setText(p.getEstado());
                 tfCep.setText(p.getCep());
-                tfValorDaDiaria.setText(String.valueOf(p.getValorDaDiaria()));
+                tfValorDaDiariaCarro.setText(String.valueOf(p.getValorDaDiariaCarro()));
+                tfValorDaDiariaCaminhao.setText(String.valueOf(p.getValorDaDiariaCaminhao()));
                 tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
                 tfLotacao.setText(String.valueOf(p.getLotacao()));
                 tfCodigo.setText(String.valueOf(p.getCodigo()));
@@ -469,7 +497,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         arrayPatios = null;
         arrayPatios = gp.listar();
         
-        Object colunas[] = {"Código","Nome","Logradouro","Número","Bairro","Município","Estado","CEP","Cap. Veículos","Diária R$","Lotação"};
+        Object colunas[] = {"Código","Nome","Logradouro","Número","Bairro","Município","Estado","CEP","Cap. Veículos","Diária Carro R$","Diária Caminhão R$","Lotação"};
         DefaultTableModel modelo = new DefaultTableModel(colunas,0);
         
         for(int i=0; i < arrayPatios.size(); i++){
@@ -483,7 +511,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 arrayPatios.get(i).getEstado(),
                 arrayPatios.get(i).getCep(),
                 arrayPatios.get(i).getCapacidadeDeVeiculos(),
-                arrayPatios.get(i).getValorDaDiaria(),
+                arrayPatios.get(i).getValorDaDiariaCarro(),
+                arrayPatios.get(i).getValorDaDiariaCaminhao(),
                 arrayPatios.get(i).getLotacao()
             };
             modelo.addRow(linhas);
@@ -500,7 +529,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         tfBairro.setText("");
         tfEstado.setText("");
         tfCep.setText("");
-        tfValorDaDiaria.setText("");
+        tfValorDaDiariaCarro.setText("");
+        tfValorDaDiariaCaminhao.setText("");
         tfCapacidadeDeVeiculos.setText("");
         tfCodigo.setText("");
     }
@@ -517,7 +547,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 tfBairro.setEditable(false);
                 tfEstado.setEditable(false);
                 tfCep.setEditable(false);
-                tfValorDaDiaria.setEditable(false);
+                tfValorDaDiariaCarro.setEditable(false);
                 tfCapacidadeDeVeiculos.setEditable(false);
                 tfLotacao.setEditable(false);
                 tfCodigo.setEditable(false);
@@ -538,7 +568,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 tfBairro.setEditable(true);
                 tfEstado.setEditable(true);
                 tfCep.setEditable(true);
-                tfValorDaDiaria.setEditable(true);
+                tfValorDaDiariaCarro.setEditable(true);
                 tfCapacidadeDeVeiculos.setEditable(true);
                 tfLotacao.setEditable(false);
                 tfCodigo.setEditable(false);
@@ -558,7 +588,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 tfBairro.setEditable(false);
                 tfEstado.setEditable(false);
                 tfCep.setEditable(false);
-                tfValorDaDiaria.setEditable(false);
+                tfValorDaDiariaCarro.setEditable(false);
                 tfCapacidadeDeVeiculos.setEditable(false);
                 tfLotacao.setEditable(false);
                 tfCodigo.setEditable(false);
@@ -578,7 +608,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 tfBairro.setEditable(false);
                 tfEstado.setEditable(false);
                 tfCep.setEditable(false);
-                tfValorDaDiaria.setEditable(false);
+                tfValorDaDiariaCarro.setEditable(false);
                 tfCapacidadeDeVeiculos.setEditable(false);
                 tfLotacao.setEditable(false);
                 tfCodigo.setEditable(false);
@@ -638,6 +668,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -660,6 +691,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfNumero;
     private javax.swing.JTextField tfPesquisarPorCodigo;
-    private javax.swing.JTextField tfValorDaDiaria;
+    private javax.swing.JTextField tfValorDaDiariaCaminhao;
+    private javax.swing.JTextField tfValorDaDiariaCarro;
     // End of variables declaration//GEN-END:variables
 }

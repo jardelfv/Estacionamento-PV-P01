@@ -33,7 +33,7 @@ public class PatioDAO {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "INSERT INTO tbl_patio(nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valor_diaria) VALUES (?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_patio(nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valordiariacarro, valordiariacaminhao) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -46,7 +46,8 @@ public class PatioDAO {
             ps.setString(6, p.getEstado());
             ps.setString(7, p.getCep());
             ps.setInt(8, p.getCapacidadeDeVeiculos());
-            ps.setFloat(9, p.getValorDaDiaria());
+            ps.setFloat(9, p.getValorDaDiariaCarro());
+            ps.setFloat(10, p.getValorDaDiariaCaminhao());
             
             
 
@@ -66,7 +67,7 @@ public class PatioDAO {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "UPDATE tbl_patio SET nome = ?, logradouro = ?, numero = ?, bairro = ?, municipio = ?, estado = ?, cep = ?, capacidade_veiculos = ?, valor_diaria = ? WHERE codigo = ?";
+        sql = "UPDATE tbl_patio SET nome = ?, logradouro = ?, numero = ?, bairro = ?, municipio = ?, estado = ?, cep = ?, capacidade_veiculos = ?, valordiariacarro = ?, valordiariacaminhao = ? WHERE codigo = ?";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -79,8 +80,9 @@ public class PatioDAO {
             ps.setString(6, p.getEstado());
             ps.setString(7, p.getCep());
             ps.setInt(8, p.getCapacidadeDeVeiculos());
-            ps.setFloat(9, p.getValorDaDiaria());
-            ps.setInt(10, p.getCodigo());
+            ps.setFloat(9, p.getValorDaDiariaCarro());
+            ps.setFloat(10, p.getValorDaDiariaCaminhao());
+            ps.setInt(11, p.getCodigo());
 
             int resultado = ps.executeUpdate();
             System.out.println("resultado desta query: "+resultado);
@@ -125,7 +127,7 @@ public class PatioDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT codigo, nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valor_diaria, lotacao FROM tbl_patio";
+        String sql = "SELECT codigo, nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valordiariacarro, valordiariacaminhao, lotacao FROM tbl_patio";
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -143,7 +145,8 @@ public class PatioDAO {
                 pat.setEstado(rs.getString("estado"));
                 pat.setCep(rs.getString("cep"));
                 pat.setCapacidadeDeVeiculos(rs.getInt("capacidade_veiculos"));
-                pat.setValorDaDiaria(rs.getFloat("valor_diaria"));
+                pat.setValorDaDiariaCarro(rs.getFloat("valordiariacarro"));
+                pat.setValorDaDiariaCaminhao(rs.getFloat("valordiariacaminhao"));
                 pat.setCapacidadeDeVeiculos(rs.getInt("lotacao"));
                 
 
@@ -154,7 +157,7 @@ public class PatioDAO {
             ps.close();
             
         } catch (Exception e) {
-            System.err.println("Erro na operação de listar cliente: " + e.getMessage());
+            System.err.println("Erro na operação de listar pátios: " + e.getMessage());
         }
 
         return patios;

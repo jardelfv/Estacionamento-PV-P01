@@ -30,8 +30,8 @@ public class GerenciaPatio {
         
     }
     
-    public String editar(int codigo, int capacidadeDeVeiculos, float valorDaDiaria, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep){
-        Patio p = new Patio(codigo, capacidadeDeVeiculos, valorDaDiaria, nome, logradouro, numero, bairro, municipio, estado, cep);
+    public String editar(int codigo, int capacidadeDeVeiculos, float valorDaDiariaCarro, String nome, String logradouro, String numero, String bairro, String municipio, String estado, String cep){
+        Patio p = new Patio(codigo, capacidadeDeVeiculos, valorDaDiariaCarro, nome, logradouro, numero, bairro, municipio, estado, cep);
         String mensagem = patioDao.editar(p);
         
         if(mensagem.equals("ok")){

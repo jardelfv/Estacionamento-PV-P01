@@ -19,6 +19,10 @@ public class Carro extends Veiculo{
         this.qtdPassageiros = qtdPassageiros;
     }
 
+    public Carro() {
+    }
+    
+
     public int getNumeroPortas() {
         return numeroPortas;
     }
@@ -34,6 +38,7 @@ public class Carro extends Veiculo{
     public void setQtdPassageiros(int qtdPassageiros) {
         this.qtdPassageiros = qtdPassageiros;
     }
+
     
     
 }
