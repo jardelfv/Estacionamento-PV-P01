@@ -33,7 +33,7 @@ public class PatioDAO {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "INSERT INTO tbl_patio(nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valordiariacarro, valordiariacaminhao) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_patio(nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valordiariacarro, valordiariacaminhao) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -67,7 +67,7 @@ public class PatioDAO {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "UPDATE tbl_patio SET nome = ?, logradouro = ?, numero = ?, bairro = ?, municipio = ?, estado = ?, cep = ?, capacidade_veiculos = ?, valordiariacarro = ?, valordiariacaminhao = ? WHERE codigo = ?";
+        sql = "UPDATE tbl_patio SET nome = ?, logradouro = ?, numero = ?, bairro = ?, municipio = ?, estado = ?, cep = ?, capacidade_veiculos = ?, valordiariacarro = ?, valordiariacaminhao = ?, lotacao = ? WHERE codigo = ?";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -82,7 +82,8 @@ public class PatioDAO {
             ps.setInt(8, p.getCapacidadeDeVeiculos());
             ps.setFloat(9, p.getValorDaDiariaCarro());
             ps.setFloat(10, p.getValorDaDiariaCaminhao());
-            ps.setInt(11, p.getCodigo());
+            ps.setInt(11, p.getLotacao());
+            ps.setInt(12, p.getCodigo());
 
             int resultado = ps.executeUpdate();
             System.out.println("resultado desta query: "+resultado);
@@ -147,7 +148,7 @@ public class PatioDAO {
                 pat.setCapacidadeDeVeiculos(rs.getInt("capacidade_veiculos"));
                 pat.setValorDaDiariaCarro(rs.getFloat("valordiariacarro"));
                 pat.setValorDaDiariaCaminhao(rs.getFloat("valordiariacaminhao"));
-                pat.setCapacidadeDeVeiculos(rs.getInt("lotacao"));
+                pat.setLotacao(rs.getInt("lotacao"));
                 
 
                 patios.add(pat);
