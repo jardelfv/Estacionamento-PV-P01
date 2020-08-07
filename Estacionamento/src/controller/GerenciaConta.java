@@ -42,10 +42,11 @@ public class GerenciaConta {
         
     }
     
-    public String cadastrarConta(int codCliente, String placa, int codPatio){
+    public String cadastrarConta(int codCliente, String placa, int codPatio, int ano, int mes, int lotacao){
         
-        Conta cont = new Conta(new Veiculo(placa), new Cliente(codCliente), new Patio(codPatio), 0, 0, 0, codPatio, false);
-        String mensagem = contaDAO.cadastrarConta(cont);
+        Conta cont = new Conta(new Veiculo(placa), new Cliente(codCliente), new Patio(codPatio), 0, ano, mes, codPatio, false);
+        String mensagem = contaDAO.cadastrarConta(cont, codPatio, lotacao);
+        
         if(mensagem.equals("ok")){
             return "ok";
         }else{

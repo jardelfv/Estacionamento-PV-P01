@@ -33,7 +33,7 @@ public class PatioDAO {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "INSERT INTO tbl_patio(nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valordiariacarro, valordiariacaminhao) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_patio(nome, logradouro, numero, bairro, municipio, estado, cep, capacidade_veiculos, valordiariacarro, valordiariacaminhao, lotacao) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -48,7 +48,7 @@ public class PatioDAO {
             ps.setInt(8, p.getCapacidadeDeVeiculos());
             ps.setFloat(9, p.getValorDaDiariaCarro());
             ps.setFloat(10, p.getValorDaDiariaCaminhao());
-            
+            ps.setInt(11, p.getLotacao());
             
 
             ps.executeUpdate();

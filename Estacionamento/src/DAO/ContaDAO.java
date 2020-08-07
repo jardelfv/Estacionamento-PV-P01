@@ -53,12 +53,14 @@ public class ContaDAO {
         }
     }
     
-    public String cadastrarConta(Conta cont) {
-
+    public String cadastrarConta(Conta cont, int codigoPatio, int lotacao) {
+        String msg2 = atualizarLotacao(codigoPatio, lotacao);
+        
         String sql;
         PreparedStatement ps;
 
-        sql = "INSERT INTO tbl_conta(cod_cliente, placa_veiculo, cod_patio, diarias, ano, mes, paga) VALUES (?,?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_conta(cod_cliente, placa_veiculo, cod_patio, ano, mes, paga) VALUES (?,?,?,?,?,?)";
+        
 
         try {
             ps = conn.prepareStatement(sql);
@@ -66,10 +68,9 @@ public class ContaDAO {
             ps.setInt(1, cont.getCliente().getCodigo());
             ps.setString(2, cont.getVeiculo().getPlaca());
             ps.setInt(3, cont.getPatio().getCodigo());
-            ps.setInt(4, cont.getDiarias());
-            ps.setInt(5, cont.getAno());
-            ps.setInt(6, cont.getMes());
-            ps.setBoolean(7, cont.getPaga());
+            ps.setInt(4, cont.getAno());
+            ps.setInt(5, cont.getMes());
+            ps.setBoolean(6, cont.getPaga());
             
             ps.execute();
             System.out.println("\n\nConta adicionada com sucesso!");
@@ -83,6 +84,33 @@ public class ContaDAO {
             
             return mensagem;
         }
+    }
+    
+     public String atualizarLotacao(int codigoPatio, int lotacao) {
+        String sql;
+        PreparedStatement ps = null;
+        
+        sql = "UPDATE tbl_patio SET lotacao = ?, diarias = ? WHERE codigo = ?";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, lotacao);
+            ps.setInt(2, 0);
+            ps.setInt(3, codigoPatio);
+
+            int resultado = ps.executeUpdate();
+            System.out.println("resultado desta query: "+resultado);
+            System.out.println("\nOK, alterado com sucesso!");
+            ps.close();
+            return "ok";
+            
+        } catch (Exception e) {
+            System.out.println("Erro na operação de atualizar lotação: " + e.getMessage());
+            String mensagem = "Erro na operação de atualizar lotação: " + e.getMessage();
+            return mensagem;
+        }
+
     }
     
     public String alterarConta(Conta cont) {

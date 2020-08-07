@@ -65,4 +65,9 @@ public class GerenciaPatio {
         return p;
 
     }
+    
+    public int verificarLotacaoPatio(int codigoPatio){
+        
+        return 0;
+    }
 }
