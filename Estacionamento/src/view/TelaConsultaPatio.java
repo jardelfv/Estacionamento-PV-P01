@@ -459,16 +459,30 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        String mensagem = gp.excluir(Integer.parseInt(tfCodigo.getText()));
         
-        if (mensagem.equals("ok")) {
-            carregarTabela();
-            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
-            limpaTela();
+        if (tfCodigo.getText().trim() != null) {
+            int resp = JOptionPane.showConfirmDialog(null,
+                    "Realmente quer excluir?",
+                    "Confirmação de exclusão", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            System.out.println("resposta: "+resp);
+
+            if (resp == JOptionPane.YES_OPTION) {
+                String mensagem = gp.excluir(Integer.parseInt(tfCodigo.getText()));
+                if (mensagem.equals("ok")) {
+                    carregarTabela();
+                    JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+                    limpaTela();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
+                }
+            }else {
+                System.out.println("Exclusão cancelada!");
+                JOptionPane.showMessageDialog(null, "Exclusão cancelada!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
+            JOptionPane.showMessageDialog(this, "Atenção, está faltando preecher algum campo!");
         }
-        
     }//GEN-LAST:event_btnExcluirActionPerformed
     
     public void carregarTabela(){

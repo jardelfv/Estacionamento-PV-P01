@@ -24,7 +24,10 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
      */
     public TelaConsultaCliente() {
         initComponents();
-        
+        //arrayClientes = null;
+        //arrayClientes = gc.listar();
+        carregarTabela();
+        estadoBotaoExcluir(false);
     }
 
     /**
@@ -377,12 +380,13 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
 
     private void tblPesquisaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesquisaClienteMouseClicked
         int index = tblPesquisaCliente.getSelectedRow();
-        arrayClientes = null;
-        arrayClientes = gc.listar();
+        //arrayClientes = null;
+        //arrayClientes = gc.listar();
 
         if (index >= 0 && index < arrayClientes.size()) {
             Cliente c = arrayClientes.get(index);
-
+            System.out.println("Cliente: "+c.getNome());
+            
             tfNome.setText(c.getNome());
             tfLogradouro.setText(c.getLogradouro());
             tfNumero.setText(c.getNumero());
@@ -392,31 +396,49 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
             tfCep.setText(c.getCep());
             tfTelefone.setText(c.getTelefone());
             tfCodigo.setText(String.valueOf(c.getCodigo()));
+            
+            estadoBotaoExcluir(true);
         }
 
     }//GEN-LAST:event_tblPesquisaClienteMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpaTela();
-        
+        estadoBotaoExcluir(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
-        String mensagem = gc.excluir(Integer.parseInt(tfCodigo.getText()));
-        
-        if (mensagem.equals("ok")) {
-            carregarTabela();
-            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
-            limpaTela();
+        if (tfCodigo.getText().trim() != null) {
+            int resp = JOptionPane.showConfirmDialog(null,
+                    "Realmente quer excluir?",
+                    "Confirmação de exclusão", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            System.out.println("resposta: " + resp);
+
+            if (resp == JOptionPane.YES_OPTION) {
+                String mensagem = gc.excluir(Integer.parseInt(tfCodigo.getText()));
+
+                if (mensagem.equals("ok")) {
+                    carregarTabela();
+                    JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+                    limpaTela();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
+                }
+            }else {
+                System.out.println("Exclusão cancelada!");
+                JOptionPane.showMessageDialog(null, "Exclusão cancelada!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         } else {
-            JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
+            JOptionPane.showMessageDialog(this, "Atenção, está faltando preecher algum campo!");
         }
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
     
     public void carregarTabela(){
-        ArrayList<Cliente> arrayClientes = new ArrayList<>();
+        //ArrayList<Cliente> arrayClientes = new ArrayList<>();
+        arrayClientes = null;
         arrayClientes = gc.listar();
         
         Object colunas[] = {"código","nome","logradouro","número","bairro","município","estado","CEP","telefone"};
@@ -450,6 +472,9 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         tfCep.setText("");
         tfTelefone.setText("");
         tfCodigo.setText("");
+    }
+    public void estadoBotaoExcluir(boolean estado){
+        btnExcluir.setEnabled(estado);
     }
     
     /**

@@ -514,7 +514,8 @@ public class TelaConsultaVeiculo extends javax.swing.JFrame {
                 }
 
             } else {
-                JOptionPane.showMessageDialog(this, "Exclusão cancelada!");
+                System.out.println("Exclusão cancelada!");
+                JOptionPane.showMessageDialog(null, "Exclusão cancelada!", "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {

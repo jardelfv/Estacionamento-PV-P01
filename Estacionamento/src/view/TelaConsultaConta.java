@@ -43,6 +43,7 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         initComponents();
         manipulaComponentes();
         patioComboBoxModel = new PatioComboboxModel();
+        estadoBotaoExcluir(false);
         //contas = null;
         //contas = gConta.listar();
     }
@@ -426,31 +427,45 @@ public class TelaConsultaConta extends javax.swing.JFrame {
             tfQuantDeDiarias.setText(String.valueOf(c.getDiarias()));
             String msg = c.getPaga() == false ? "Não Paga" : "Paga";
             tfPago.setText(msg);
+            
+            estadoBotaoExcluir(true);
         }
 
     }//GEN-LAST:event_tblPesquisaContaMouseClicked
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(tfCodigoConta.getText().length() > 0){
-            int codigoConta = Integer.parseInt(tfCodigoConta.getText());
+        if (tfCodigoConta.getText().trim() != null) {
+            int codigoConta = Integer.parseInt(tfCodigoConta.getText().trim());
             
-            String mensagem = gConta.excluirConta(codigoConta);
-            if(mensagem.equals("ok")){
-                JOptionPane.showMessageDialog(this, "Conta excluída com sucesso");
-                
-            }else{
-                JOptionPane.showMessageDialog(this, "Não foi possível excluir essa conta: "+mensagem);
-                
+            int resp = JOptionPane.showConfirmDialog(null,
+                    "Realmente quer excluir?",
+                    "Confirmação de exclusão", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            System.out.println("resposta: " + resp);
+
+            if (resp == JOptionPane.YES_OPTION) {
+                String mensagem = gConta.excluirConta(codigoConta);
+                if (mensagem.equals("ok")) {
+                    JOptionPane.showMessageDialog(this, "Conta excluída com sucesso");
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Não foi possível excluir essa conta: " + mensagem);
+
+                }
+            }else {
+                System.out.println("Exclusão cancelada!");
+                JOptionPane.showMessageDialog(null, "Exclusão cancelada!", "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(this, "Atenção, está faltando preecher algum campo!");
         }
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpaTela();
+        estadoBotaoExcluir(false);
         
     }//GEN-LAST:event_btnCancelarActionPerformed
     public void carregarTabelaConta(){
@@ -493,6 +508,9 @@ public class TelaConsultaConta extends javax.swing.JFrame {
         tfCodigoVeiculo.setEditable(false);
         tfCodigoPatio.setEditable(false);
         tfPlaca.setEditable(false);
+    }
+    public void estadoBotaoExcluir(boolean estado){
+        btnExcluir.setEnabled(estado);
     }
     
     /**
