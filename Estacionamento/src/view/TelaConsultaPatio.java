@@ -26,7 +26,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
      */
     public TelaConsultaPatio() {
         initComponents();
-        
+        tfLotacao.setEditable(false);
+        estadoBotaoExcluir(false);
     }
 
     /**
@@ -449,13 +450,15 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
             tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
             tfLotacao.setText(String.valueOf(p.getLotacao()));
             tfCodigo.setText(String.valueOf(p.getCodigo()));
+            
+            estadoBotaoExcluir(true);
         }
 
     }//GEN-LAST:event_tblPesquisaPatioMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpaTela();
-        
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -525,6 +528,10 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         tfValorDaDiariaCaminhao.setText("");
         tfCapacidadeDeVeiculos.setText("");
         tfCodigo.setText("");
+        tfLotacao.setText("");
+    }
+    public void estadoBotaoExcluir(boolean estado){
+        btnExcluir.setEnabled(estado);
     }
     
     /**
