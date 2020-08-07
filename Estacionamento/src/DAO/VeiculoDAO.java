@@ -36,7 +36,7 @@ public class VeiculoDAO {
         String sql;
         PreparedStatement ps = null;
 
-        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,numeroportas,qtdpassageiros) VALUES (?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,numeroportas,qtdpassageiros,tipo_veiculo) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -49,6 +49,7 @@ public class VeiculoDAO {
             ps.setString(6, c.getChassi());
             ps.setInt(7, c.getNumeroPortas());
             ps.setInt(8, c.getQtdPassageiros());
+            ps.setString(9, "carro");
 
             ps.executeUpdate();
             ps.close();
@@ -67,7 +68,7 @@ public class VeiculoDAO {
         String sql;
         PreparedStatement ps = null;
         
-        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,numerodeeixos,capacidadedecarga) VALUES (?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,numerodeeixos,capacidadedecarga,tipo_veiculo) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             ps = conn.prepareStatement(sql);
@@ -80,6 +81,7 @@ public class VeiculoDAO {
             ps.setString(6, c.getChassi());
             ps.setInt(7, c.getNumeroDeEixos());
             ps.setFloat(8, c.getCapacidadeDeCarga());
+            ps.setString(9, "caminhao");
 
             ps.executeUpdate();
             ps.close();
@@ -99,10 +101,11 @@ public class VeiculoDAO {
         PreparedStatement ps = null;
 
  
-        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,cilindradas,qtdrodas) VALUES (?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_veiculo(marca,modelo,ano_fabricacao,ano_modelo,placa,chassi,cilindradas,qtdrodas,tipo_veiculo) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             ps = conn.prepareStatement(sql);
+            String tipo = "motocicleta";
 
             ps.setString(1, m.getMarca());
             ps.setString(2, m.getModelo());
@@ -112,6 +115,7 @@ public class VeiculoDAO {
             ps.setString(6, m.getChassi());
             ps.setInt(7, m.getCilindradas());
             ps.setInt(8, m.getQtdRodas());
+            ps.setString(9, tipo);
 
             ps.executeUpdate();
             ps.close();
@@ -175,7 +179,7 @@ public class VeiculoDAO {
                 System.out.println("\nOK, alterado com sucesso!");
                 
                 return "ok";
-            }else{
+            }else if(veic instanceof Motocicleta){
                 Motocicleta m = (Motocicleta) veic;
                 
                 sql = "UPDATE tbl_veiculo SET marca = ?, modelo = ?, ano_fabricacao = ?, ano_modelo = ?, numeroportas = ?, qtdpassageiros = ?, cilindradas = ?, qtdrodas = ? WHERE placa = ?";
@@ -195,6 +199,9 @@ public class VeiculoDAO {
                 System.out.println("\nOK, alterado com sucesso!");
                 
                 return "ok";
+            }else{
+                System.out.println("\nTipo de veículo não reconhecido");
+                return "Tipo de veículo não reconhecido";
             }
             
             
@@ -236,21 +243,19 @@ public class VeiculoDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String sql = "SELECT codigo, marca, modelo, ano_fabricacao, ano_modelo, chassi, placa,numeroportas,qtdpassageiros,numerodeeixos,capacidadedecarga,cilindradas,qtdrodas,tipo_veiculo\n"
-                + "FROM tbl_veiculo;";
+        String sql = "SELECT codigo, marca, modelo, ano_fabricacao, ano_modelo, chassi, placa,numeroportas,qtdpassageiros,numerodeeixos,capacidadedecarga,cilindradas,qtdrodas,tipo_veiculo FROM tbl_veiculo";
 
         try {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             
-            if (rs.getString("tipo_veiculo").equals("carro")) {
-                
-                while (rs.next()) {
-                    
+            while (rs.next()) {
+                if (rs.getString("tipo_veiculo").equals("carro")) {
+
                     Carro c = new Carro();
-                    
+
                     c.setCodigo(rs.getInt("codigo"));
-                    
+
                     c.setMarca(rs.getString("marca"));
                     c.setModelo(rs.getString("modelo"));
                     c.setAnoFabricacao(rs.getInt("ano_fabricacao"));
@@ -260,20 +265,15 @@ public class VeiculoDAO {
                     c.setNumeroPortas(rs.getInt("numeroportas"));
                     c.setQtdPassageiros(rs.getInt("qtdpassageiros"));
                     
+                    System.out.println("Listando carro,");
                     carros.add(c);
-                    
-                }
-                rs.close();
-                ps.close();
-                
-            } else if (rs.getString("tipo_veiculo").equals("caminhao")) {
-                
-                while (rs.next()) {
-                    
+
+                } else if (rs.getString("tipo_veiculo").equals("caminhao")) {
+
                     Caminhao c = new Caminhao();
-                    
+
                     c.setCodigo(rs.getInt("codigo"));
-                    
+
                     c.setMarca(rs.getString("marca"));
                     c.setModelo(rs.getString("modelo"));
                     c.setAnoFabricacao(rs.getInt("ano_fabricacao"));
@@ -283,19 +283,15 @@ public class VeiculoDAO {
                     c.setNumeroDeEixos(rs.getInt("numerodeeixos"));
                     c.setCapacidadeDeCarga(rs.getFloat("capacidadedecarga"));
                     
+                    System.out.println("Listando caminhão,");
                     carros.add(c);
-                    
-                }
-                rs.close();
-                ps.close();
-            } else {
-                
-                while (rs.next()) {
-                    
+
+                } else {
+
                     Motocicleta m = new Motocicleta();
-                    
+
                     m.setCodigo(rs.getInt("codigo"));
-                    
+
                     m.setMarca(rs.getString("marca"));
                     m.setModelo(rs.getString("modelo"));
                     m.setAnoFabricacao(rs.getInt("ano_fabricacao"));
@@ -305,13 +301,13 @@ public class VeiculoDAO {
                     m.setCilindradas(rs.getInt("cilindradas"));
                     m.setQtdRodas(rs.getInt("qtdrodas"));
                     
+                    System.out.println("Listando motocicleta,");
                     carros.add(m);
                     
                 }
-                rs.close();
-                ps.close();
             }
-            
+            rs.close();
+            ps.close();
 
         } catch (Exception e) {
             System.err.println("Erro na operação de listar veículos: " + e.getMessage());

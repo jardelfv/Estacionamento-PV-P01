@@ -105,10 +105,8 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jbCapacidadeDeCarga" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jbQtdPassageiros" max="32767" attributes="0"/>
-                              <Component id="tfQtdPassageiros" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jbQtdPassageiros" max="32767" attributes="0"/>
+                          <Component id="tfQtdPassageiros" max="32767" attributes="0"/>
                           <Component id="tfCapacidadeDeCarga" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>

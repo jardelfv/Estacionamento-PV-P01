@@ -315,28 +315,49 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        String marca = tfMarca.getText(),
-                modelo = tfModelo.getText(),
-                placa = tfPlaca.getText(),
-                chassi = tfChassi.getText();
-        int anoFabricacao = Integer.parseInt(tfAnoFabricacao.getText()),
-            anoModelo = Integer.parseInt(tfAnoModelo.getText());
-        int numeroPortas = Integer.parseInt(tfNumeroPortas.getText()),
-            qtdPassageiros = Integer.parseInt(tfQtdPassageiros.getText()),
-            cilindradas = Integer.parseInt(tfCilindradas.getText()),
-            qtdRodas = Integer.parseInt(tfQtdRodas.getText()),
-            numeroDeEixos = Integer.parseInt(tfNumeroDeEixos.getText());
-        float capacidadeDeCarga = Float.parseFloat(tfCapacidadeDeCarga.getText());
+//        String marca = tfMarca.getText(),
+//                modelo = tfModelo.getText(),
+//                placa = tfPlaca.getText(),
+//                chassi = tfChassi.getText();
+//        int anoFabricacao = Integer.parseInt(tfAnoFabricacao.getText()),
+//            anoModelo = Integer.parseInt(tfAnoModelo.getText());
+//        int numeroPortas = Integer.parseInt(tfNumeroPortas.getText()),
+//            qtdPassageiros = Integer.parseInt(tfQtdPassageiros.getText()),
+//            cilindradas = Integer.parseInt(tfCilindradas.getText()),
+//            qtdRodas = Integer.parseInt(tfQtdRodas.getText()),
+//            numeroDeEixos = Integer.parseInt(tfNumeroDeEixos.getText());
+//        float capacidadeDeCarga = Float.parseFloat(tfCapacidadeDeCarga.getText());
         
         String mensagem = "";
         if(sinal.equals("carro")){
-            mensagem = gv.incluirCarro(anoModelo, anoFabricacao, marca, modelo, chassi, placa, numeroPortas, qtdPassageiros);
+            mensagem = gv.incluirCarro(Integer.parseInt(tfAnoModelo.getText()), 
+                    Integer.parseInt(tfAnoFabricacao.getText()), 
+                    tfMarca.getText(), 
+                    tfModelo.getText(), 
+                    tfChassi.getText(), 
+                    tfPlaca.getText(), 
+                    Integer.parseInt(tfNumeroPortas.getText()), 
+                    Integer.parseInt(tfQtdPassageiros.getText()));
             
         }else if(sinal.equals("caminhao")){
-            mensagem = gv.incluirCaminhao(anoModelo, anoFabricacao, marca, modelo, chassi, placa, numeroDeEixos, capacidadeDeCarga);
+            mensagem = gv.incluirCaminhao(Integer.parseInt(tfAnoModelo.getText()), 
+                    Integer.parseInt(tfAnoFabricacao.getText()), 
+                    tfMarca.getText(), 
+                    tfModelo.getText(), 
+                    tfChassi.getText(), 
+                    tfPlaca.getText(), 
+                    Integer.parseInt(tfNumeroDeEixos.getText()), 
+                    Float.parseFloat(tfCapacidadeDeCarga.getText()));
             
         }else if(sinal.equals("motocicleta")){
-            mensagem = gv.incluirMotocicleta(anoModelo, anoFabricacao, marca, modelo, chassi, placa, cilindradas, qtdRodas);
+            mensagem = gv.incluirMotocicleta(Integer.parseInt(tfAnoModelo.getText()), 
+                    Integer.parseInt(tfAnoFabricacao.getText()), 
+                    tfMarca.getText(), 
+                    tfModelo.getText(), 
+                    tfChassi.getText(),
+                    tfPlaca.getText(), 
+                    Integer.parseInt(tfCilindradas.getText()), 
+                    Integer.parseInt(tfQtdRodas.getText()));
             
         }
         
