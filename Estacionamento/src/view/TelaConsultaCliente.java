@@ -18,16 +18,13 @@ import model.Cliente;
 public class TelaConsultaCliente extends javax.swing.JFrame {
     ArrayList<Cliente> arrayClientes = new ArrayList<>();
     GerenciaCliente gc = new GerenciaCliente();
-    String modo;
-    String filtro = "geral";
     
     /**
      * Creates new form TelaConsultaCliente
      */
     public TelaConsultaCliente() {
         initComponents();
-        modo = "navegar";
-        manipulaBotoesComponentes();
+        
     }
 
     /**
@@ -65,7 +62,6 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPesquisaCliente = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         tfCodigo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -177,13 +173,6 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,10 +191,9 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir)
+                        .addGap(18, 18, 18)
                         .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btnSalvar)
@@ -306,7 +294,6 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
-                    .addComponent(btnEditar)
                     .addComponent(btnExcluir))
                 .addGap(28, 28, 28))
         );
@@ -320,7 +307,7 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
 
     private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
         Cliente c = gc.buscarPorCodigo(Integer.parseInt(tfPesquisarPorCodigo.getText()));
-        filtro = "pesquisa";
+        
         if (c != null) {
             arrayClientes = null;
             arrayClientes = gc.listar();
@@ -385,51 +372,38 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         carregarTabela();
-        filtro = "geral";
-    }//GEN-LAST:event_btnAtualizarActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        modo = "editar";
-        manipulaBotoesComponentes();
         
-    }//GEN-LAST:event_btnEditarActionPerformed
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void tblPesquisaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesquisaClienteMouseClicked
         int index = tblPesquisaCliente.getSelectedRow();
         arrayClientes = null;
         arrayClientes = gc.listar();
 
-        if (filtro.equals("geral")) {
-            if (index >= 0 && index < arrayClientes.size()) {
-                Cliente c = arrayClientes.get(index);
+        if (index >= 0 && index < arrayClientes.size()) {
+            Cliente c = arrayClientes.get(index);
 
-                tfNome.setText(c.getNome());
-                tfLogradouro.setText(c.getLogradouro());
-                tfNumero.setText(c.getNumero());
-                tfMunicipio.setText(c.getMunicipio());
-                tfBairro.setText(c.getBairro());
-                tfEstado.setText(c.getEstado());
-                tfCep.setText(c.getCep());
-                tfTelefone.setText(c.getTelefone());
-                tfCodigo.setText(String.valueOf(c.getCodigo()));
-            }
+            tfNome.setText(c.getNome());
+            tfLogradouro.setText(c.getLogradouro());
+            tfNumero.setText(c.getNumero());
+            tfMunicipio.setText(c.getMunicipio());
+            tfBairro.setText(c.getBairro());
+            tfEstado.setText(c.getEstado());
+            tfCep.setText(c.getCep());
+            tfTelefone.setText(c.getTelefone());
+            tfCodigo.setText(String.valueOf(c.getCodigo()));
         }
 
     }//GEN-LAST:event_tblPesquisaClienteMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpaTela();
-
-        modo = "navegar";
-        manipulaBotoesComponentes();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         
         String mensagem = gc.excluir(Integer.parseInt(tfCodigo.getText()));
-        modo = "excluir";
-        manipulaBotoesComponentes();
         
         if (mensagem.equals("ok")) {
             carregarTabela();
@@ -438,9 +412,6 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
         }
-        
-        modo = "navegar";
-        manipulaBotoesComponentes();
         
     }//GEN-LAST:event_btnExcluirActionPerformed
     
@@ -480,84 +451,7 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         tfTelefone.setText("");
         tfCodigo.setText("");
     }
-    public void manipulaBotoesComponentes(){
-        switch (modo) {
-            case "navegar":
-                btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-
-                tfNome.setEditable(false);
-                tfLogradouro.setEditable(false);
-                tfNumero.setEditable(false);
-                tfMunicipio.setEditable(false);
-                tfBairro.setEditable(false);
-                tfEstado.setEditable(false);
-                tfCep.setEditable(false);
-                tfTelefone.setEditable(false);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(true);
-                btnExcluir.setEnabled(false);
-
-                break;
-
-            case "editar":
-                btnSalvar.setEnabled(true);
-                btnCancelar.setEnabled(true);
-                
-                tfNome.setEditable(true);
-                tfLogradouro.setEditable(true);
-                tfNumero.setEditable(true);
-                tfMunicipio.setEditable(true);
-                tfBairro.setEditable(true);
-                tfEstado.setEditable(true);
-                tfCep.setEditable(true);
-                tfTelefone.setEditable(true);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(true);
-                break;
-
-            case "excluir":
-                btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(true);
-                
-                tfNome.setEditable(false);
-                tfLogradouro.setEditable(false);
-                tfNumero.setEditable(false);
-                tfMunicipio.setEditable(false);
-                tfBairro.setEditable(false);
-                tfEstado.setEditable(false);
-                tfCep.setEditable(false);
-                tfTelefone.setEditable(false);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(true);
-                btnExcluir.setEnabled(true);
-                break;
-
-            case "selecao":
-                btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-
-                tfNome.setEditable(false);
-                tfLogradouro.setEditable(false);
-                tfNumero.setEditable(false);
-                tfMunicipio.setEditable(false);
-                tfBairro.setEditable(false);
-                tfEstado.setEditable(false);
-                tfCep.setEditable(false);
-                tfTelefone.setEditable(false);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(true);
-                btnExcluir.setEnabled(true);
-                break;
-            default:
-                System.out.println("Modo inexistente");
-        }
-    }
+    
     /**
      * @param args the command line arguments
      */
@@ -596,7 +490,6 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisa;
     private javax.swing.JButton btnSalvar;

@@ -20,14 +20,13 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
     ArrayList<Patio> arrayPatios = new ArrayList<>();
     GerenciaPatio gp = new GerenciaPatio();
     String modo;
-    String filtro = "geral";
+    
     /**
      * Creates new form TelaConsultaCliente
      */
     public TelaConsultaPatio() {
         initComponents();
-        modo = "navegar";
-        manipulaBotoesComponentes();
+        
     }
 
     /**
@@ -69,7 +68,6 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         tfLotacao = new javax.swing.JTextField();
         tfValorDaDiariaCarro = new javax.swing.JTextField();
-        btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         tfCodigo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -189,13 +187,6 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
 
         tfLotacao.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
 
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,11 +204,9 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
@@ -264,10 +253,9 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                                     .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(tfPesquisarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(tfLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(tfLogradouro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addGap(0, 0, Short.MAX_VALUE)))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,9 +263,8 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                                     .addComponent(btnPesquisa)
                                     .addGap(32, 32, 32)
                                     .addComponent(btnAtualizar))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)))
+                                .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4))
                             .addGap(65, 65, 65))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -358,7 +345,6 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar)
-                    .addComponent(btnEditar)
                     .addComponent(btnExcluir))
                 .addGap(28, 28, 28))
         );
@@ -372,7 +358,6 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
 
     private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
         Patio p = gp.buscarPorCodigo(Integer.parseInt(tfPesquisarPorCodigo.getText()));
-        filtro = "pesquisa";
 
         if (p != null) {
             Object colunas[] = {"Código", "Nome", "Logradouro", "Número", "Bairro", "Município", "Estado", "CEP", "Cap. Veículos", "Diária Carro R$", "Diária Caminhão R$","Lotação"};
@@ -441,53 +426,40 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         carregarTabela();
-        filtro = "geral";
+        
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void tblPesquisaPatioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesquisaPatioMouseClicked
         int index = tblPesquisaPatio.getSelectedRow();
         //arrayPatios = null;
         //arrayPatios = gp.listar();
-        
-        if (filtro.equals("geral")) {
-            if (index >= 0 && index < arrayPatios.size()) {
-                Patio p = arrayPatios.get(index);
-                
-                tfNome.setText(p.getNome());
-                tfLogradouro.setText(p.getLogradouro());
-                tfNumero.setText(p.getNumero());
-                tfMunicipio.setText(p.getMunicipio());
-                tfBairro.setText(p.getBairro());
-                tfEstado.setText(p.getEstado());
-                tfCep.setText(p.getCep());
-                tfValorDaDiariaCarro.setText(String.valueOf(p.getValorDaDiariaCarro()));
-                tfValorDaDiariaCaminhao.setText(String.valueOf(p.getValorDaDiariaCaminhao()));
-                tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
-                tfLotacao.setText(String.valueOf(p.getLotacao()));
-                tfCodigo.setText(String.valueOf(p.getCodigo()));
-            }
-        }
-        
-    }//GEN-LAST:event_tblPesquisaPatioMouseClicked
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        modo = "editar";
-        manipulaBotoesComponentes();
-        
-    }//GEN-LAST:event_btnEditarActionPerformed
+        if (index >= 0 && index < arrayPatios.size()) {
+            Patio p = arrayPatios.get(index);
+
+            tfNome.setText(p.getNome());
+            tfLogradouro.setText(p.getLogradouro());
+            tfNumero.setText(p.getNumero());
+            tfMunicipio.setText(p.getMunicipio());
+            tfBairro.setText(p.getBairro());
+            tfEstado.setText(p.getEstado());
+            tfCep.setText(p.getCep());
+            tfValorDaDiariaCarro.setText(String.valueOf(p.getValorDaDiariaCarro()));
+            tfValorDaDiariaCaminhao.setText(String.valueOf(p.getValorDaDiariaCaminhao()));
+            tfCapacidadeDeVeiculos.setText(String.valueOf(p.getCapacidadeDeVeiculos()));
+            tfLotacao.setText(String.valueOf(p.getLotacao()));
+            tfCodigo.setText(String.valueOf(p.getCodigo()));
+        }
+
+    }//GEN-LAST:event_tblPesquisaPatioMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpaTela();
-
-        modo = "navegar";
-        manipulaBotoesComponentes();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         String mensagem = gp.excluir(Integer.parseInt(tfCodigo.getText()));
-        modo = "excluir";
-        manipulaBotoesComponentes();
         
         if (mensagem.equals("ok")) {
             carregarTabela();
@@ -496,9 +468,6 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Erro! " + mensagem);
         }
-        
-        modo = "navegar";
-        manipulaBotoesComponentes();
         
     }//GEN-LAST:event_btnExcluirActionPerformed
     
@@ -543,92 +512,7 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
         tfCapacidadeDeVeiculos.setText("");
         tfCodigo.setText("");
     }
-    public void manipulaBotoesComponentes(){
-        switch (modo) {
-            case "navegar":
-                btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-
-                tfNome.setEditable(false);
-                tfLogradouro.setEditable(false);
-                tfNumero.setEditable(false);
-                tfMunicipio.setEditable(false);
-                tfBairro.setEditable(false);
-                tfEstado.setEditable(false);
-                tfCep.setEditable(false);
-                tfValorDaDiariaCarro.setEditable(false);
-                tfCapacidadeDeVeiculos.setEditable(false);
-                tfLotacao.setEditable(false);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(true);
-                btnExcluir.setEnabled(false);
-
-                break;
-
-            case "editar":
-                btnSalvar.setEnabled(true);
-                btnCancelar.setEnabled(true);
-                
-                tfNome.setEditable(true);
-                tfLogradouro.setEditable(true);
-                tfNumero.setEditable(true);
-                tfMunicipio.setEditable(true);
-                tfBairro.setEditable(true);
-                tfEstado.setEditable(true);
-                tfCep.setEditable(true);
-                tfValorDaDiariaCarro.setEditable(true);
-                tfCapacidadeDeVeiculos.setEditable(true);
-                tfLotacao.setEditable(false);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(true);
-                break;
-
-            case "excluir":
-                btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                
-                tfNome.setEditable(false);
-                tfLogradouro.setEditable(false);
-                tfNumero.setEditable(false);
-                tfMunicipio.setEditable(false);
-                tfBairro.setEditable(false);
-                tfEstado.setEditable(false);
-                tfCep.setEditable(false);
-                tfValorDaDiariaCarro.setEditable(false);
-                tfCapacidadeDeVeiculos.setEditable(false);
-                tfLotacao.setEditable(false);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(true);
-                break;
-
-            case "selecao":
-                btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-
-                tfNome.setEditable(false);
-                tfLogradouro.setEditable(false);
-                tfNumero.setEditable(false);
-                tfMunicipio.setEditable(false);
-                tfBairro.setEditable(false);
-                tfEstado.setEditable(false);
-                tfCep.setEditable(false);
-                tfValorDaDiariaCarro.setEditable(false);
-                tfCapacidadeDeVeiculos.setEditable(false);
-                tfLotacao.setEditable(false);
-                tfCodigo.setEditable(false);
-
-                btnEditar.setEnabled(true);
-                btnExcluir.setEnabled(true);
-                break;
-            default:
-                System.out.println("Modo inexistente");
-        }
-    }
+    
     /**
      * @param args the command line arguments
      */
@@ -668,7 +552,6 @@ public class TelaConsultaPatio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisa;
     private javax.swing.JButton btnSalvar;
