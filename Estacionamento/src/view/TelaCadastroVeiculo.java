@@ -327,46 +327,58 @@ public class TelaCadastroVeiculo extends javax.swing.JFrame {
 //            qtdRodas = Integer.parseInt(tfQtdRodas.getText()),
 //            numeroDeEixos = Integer.parseInt(tfNumeroDeEixos.getText());
 //        float capacidadeDeCarga = Float.parseFloat(tfCapacidadeDeCarga.getText());
-        
+
         String mensagem = "";
-        if(sinal.equals("carro")){
-            mensagem = gv.incluirCarro(Integer.parseInt(tfAnoModelo.getText()), 
-                    Integer.parseInt(tfAnoFabricacao.getText()), 
-                    tfMarca.getText(), 
-                    tfModelo.getText(), 
-                    tfChassi.getText(), 
-                    tfPlaca.getText(), 
-                    Integer.parseInt(tfNumeroPortas.getText()), 
-                    Integer.parseInt(tfQtdPassageiros.getText()));
-            
-        }else if(sinal.equals("caminhao")){
-            mensagem = gv.incluirCaminhao(Integer.parseInt(tfAnoModelo.getText()), 
-                    Integer.parseInt(tfAnoFabricacao.getText()), 
-                    tfMarca.getText(), 
-                    tfModelo.getText(), 
-                    tfChassi.getText(), 
-                    tfPlaca.getText(), 
-                    Integer.parseInt(tfNumeroDeEixos.getText()), 
-                    Float.parseFloat(tfCapacidadeDeCarga.getText()));
-            
-        }else if(sinal.equals("motocicleta")){
-            mensagem = gv.incluirMotocicleta(Integer.parseInt(tfAnoModelo.getText()), 
-                    Integer.parseInt(tfAnoFabricacao.getText()), 
-                    tfMarca.getText(), 
-                    tfModelo.getText(), 
-                    tfChassi.getText(),
-                    tfPlaca.getText(), 
-                    Integer.parseInt(tfCilindradas.getText()), 
-                    Integer.parseInt(tfQtdRodas.getText()));
-            
+        if (tfAnoModelo.getText().trim().length() > 0
+                && tfAnoFabricacao.getText().trim().length() > 0
+                && tfMarca.getText().trim().length() > 0
+                && tfModelo.getText().trim().length() > 0
+                && tfChassi.getText().trim().length() > 0
+                && tfPlaca.getText().trim().length() > 0) {
+
+            if (sinal.equals("carro")) {
+                mensagem = gv.incluirCarro(Integer.parseInt(tfAnoModelo.getText()),
+                        Integer.parseInt(tfAnoFabricacao.getText()),
+                        tfMarca.getText(),
+                        tfModelo.getText(),
+                        tfChassi.getText(),
+                        tfPlaca.getText(),
+                        Integer.parseInt(tfNumeroPortas.getText()),
+                        Integer.parseInt(tfQtdPassageiros.getText()));
+
+            } else if (sinal.equals("caminhao")) {
+                mensagem = gv.incluirCaminhao(Integer.parseInt(tfAnoModelo.getText()),
+                        Integer.parseInt(tfAnoFabricacao.getText()),
+                        tfMarca.getText(),
+                        tfModelo.getText(),
+                        tfChassi.getText(),
+                        tfPlaca.getText(),
+                        Integer.parseInt(tfNumeroDeEixos.getText()),
+                        Float.parseFloat(tfCapacidadeDeCarga.getText()));
+
+            } else if (sinal.equals("motocicleta")) {
+                mensagem = gv.incluirMotocicleta(Integer.parseInt(tfAnoModelo.getText()),
+                        Integer.parseInt(tfAnoFabricacao.getText()),
+                        tfMarca.getText(),
+                        tfModelo.getText(),
+                        tfChassi.getText(),
+                        tfPlaca.getText(),
+                        Integer.parseInt(tfCilindradas.getText()),
+                        Integer.parseInt(tfQtdRodas.getText()));
+
+            }
+
+            if (mensagem.equals("ok")) {
+                JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
+                limpaTela();
+            } else {
+                JOptionPane.showMessageDialog(this, "Algo aconteceu, " + mensagem);
+            }
+
+        }else {
+            JOptionPane.showMessageDialog(this, "Atenção, está faltando preecher algum campo!");
         }
-        
-        if(mensagem.equals("ok")){
-            JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
-            limpaTela();
-        }else{
-            JOptionPane.showMessageDialog(this, "Algo aconteceu, "+mensagem);
-        }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

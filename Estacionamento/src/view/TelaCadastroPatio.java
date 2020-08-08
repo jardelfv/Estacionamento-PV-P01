@@ -229,22 +229,34 @@ public class TelaCadastroPatio extends javax.swing.JFrame {
         String nome = tfNome.getText(),
                 logradouro = tfLogradouro.getText(),
                 numero = tfNumero.getText(),
-                bairro = tfMunicipio.getText(),
-                municipio = tfBairro.getText(),
+                bairro = tfBairro.getText(),
+                municipio = tfMunicipio.getText(),
                 estado = tfEstado.getText(),
                 cep = tfCep.getText();
         float valorDaDiariaCarro = Float.parseFloat(tfValorDaDiariaCarro.getText()),
-              valorDaDiariaCaminhao = Float.parseFloat(tfValorDadiariaCaminhao.getText());
+                valorDaDiariaCaminhao = Float.parseFloat(tfValorDadiariaCaminhao.getText());
         int capacidadeDeVeiculos = Integer.parseInt(tfCapacidadeDeVeiculos.getText());
-        
-        String mensagem = gp.incluir(capacidadeDeVeiculos, valorDaDiariaCarro, valorDaDiariaCaminhao, nome, logradouro, numero, bairro, municipio, estado, cep);
-        
-        if(mensagem.equals("ok")){
-            JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
-            limpaTela();
-        }else{
-            JOptionPane.showMessageDialog(this, "Algo aconteceu, "+mensagem);
+
+        if (tfNome.getText().trim().length() > 0 &&
+                tfLogradouro.getText().trim().length() > 0 &&
+                tfNumero.getText().trim().length() > 0 &&
+                tfMunicipio.getText().trim().length() > 0 &&
+                tfBairro.getText().trim().length() > 0 &&
+                tfEstado.getText().trim().length() > 0 &&
+                tfCep.getText().trim().length() > 0) {
+            
+            String mensagem = gp.incluir(capacidadeDeVeiculos, valorDaDiariaCarro, valorDaDiariaCaminhao, nome, logradouro, numero, bairro, municipio, estado, cep);
+
+            if (mensagem.equals("ok")) {
+                JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
+                limpaTela();
+            } else {
+                JOptionPane.showMessageDialog(this, "Algo aconteceu, " + mensagem);
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Atenção, está faltando preecher algum campo!");
         }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -681,7 +681,7 @@ public class TelaCadastroConta extends javax.swing.JFrame {
     }//GEN-LAST:event_cbNomePatioActionPerformed
 
     private void cbNomePatioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbNomePatioMouseClicked
-      
+      carregarCombobox();
         
     }//GEN-LAST:event_cbNomePatioMouseClicked
 
@@ -712,6 +712,8 @@ public class TelaCadastroConta extends javax.swing.JFrame {
                 String mensagem = gConta.cadastrarConta(codCliente, placa, codPatio, ano, mes, lotacao);
                 if (mensagem.equals("ok")) {
                     JOptionPane.showMessageDialog(this, "Conta cadastrada com sucesso");
+                    carregarCombobox();
+                    limpatela();
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Não foi possível cadastrar: " + mensagem);
@@ -800,11 +802,20 @@ public class TelaCadastroConta extends javax.swing.JFrame {
     public boolean verificarLotacaoPatio(){
         int capacidade = Integer.parseInt(tfCapacidadeDeVeiculos.getText());
         int lotacao = Integer.parseInt(tfLotacao.getText());
-        if(lotacao <= capacidade){
+        if(lotacao < capacidade){
             return true;
         }else{
             return false;
         }
+    }
+    public void limpatela() {
+        tfModelo.setText("");
+        tfPlaca.setText("");
+        tfNomeCliente.setText("");
+        tfCodigoCliente.setText("");
+        tfCodigoPatio.setText("");
+        tfCapacidadeDeVeiculos.setText("");
+        tfLotacao.setText("");
     }
     /**
      * @param args the command line arguments

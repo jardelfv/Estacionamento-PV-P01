@@ -209,12 +209,17 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 estado = tfEstado.getText(),
                 cep = tfCep.getText(),
                 telefone = tfTelefone.getText();
-        String mensagem = gc.incluir(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
-        if(mensagem.equals("ok")){
-            JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
-            limpaTela();
-        }else{
-            JOptionPane.showMessageDialog(this, "Algo aconteceu, "+mensagem);
+        
+        if (tfNome.getText().trim().length() >0 && tfTelefone.getText().trim().length() >0) {
+            String mensagem = gc.incluir(nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
+            if (mensagem.equals("ok")) {
+                JOptionPane.showMessageDialog(this, "Ok, salvo com sucesso!");
+                limpaTela();
+            } else {
+                JOptionPane.showMessageDialog(this, "Algo aconteceu, " + mensagem);
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Atenção, o campo nome e telefone é obrigatório preecher");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

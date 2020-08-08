@@ -59,7 +59,7 @@ public class ContaDAO {
         String sql;
         PreparedStatement ps;
 
-        sql = "INSERT INTO tbl_conta(cod_cliente, placa_veiculo, cod_patio, ano, mes, paga) VALUES (?,?,?,?,?,?)";
+        sql = "INSERT INTO tbl_conta(cod_cliente, placa_veiculo, cod_patio, ano, mes, paga, diarias) VALUES (?,?,?,?,?,?,?)";
         
 
         try {
@@ -71,6 +71,7 @@ public class ContaDAO {
             ps.setInt(4, cont.getAno());
             ps.setInt(5, cont.getMes());
             ps.setBoolean(6, cont.getPaga());
+            ps.setInt(7, 0);
             
             ps.execute();
             System.out.println("\n\nConta adicionada com sucesso!");
@@ -90,14 +91,13 @@ public class ContaDAO {
         String sql;
         PreparedStatement ps = null;
         
-        sql = "UPDATE tbl_patio SET lotacao = ?, diarias = ? WHERE codigo = ?";
+        sql = "UPDATE tbl_patio SET lotacao = ? WHERE codigo = ?";
         
         try {
             ps = conn.prepareStatement(sql);
 
             ps.setInt(1, lotacao);
-            ps.setInt(2, 0);
-            ps.setInt(3, codigoPatio);
+            ps.setInt(2, codigoPatio);
 
             int resultado = ps.executeUpdate();
             System.out.println("resultado desta query: "+resultado);
